@@ -481,10 +481,16 @@
   }
   .modal-overlay.open { display:flex; }
   .modal-box {
-    background:#0d1235; border:1px solid rgba(111,174,189,0.2);
-    border-radius:8px; padding:48px; max-width:540px; width:90%;
-    text-align:center; position:relative;
-  }
+  background: var(--navy);
+  border-radius: 16px;
+  padding: 30px;
+  width: 95vw;
+  max-width: 1100px;
+  max-height: 92vh;
+  overflow-y: auto;
+  position: relative;
+  border: 1px solid rgba(111,174,189,0.15);
+}
   .modal-close {
     position:absolute; top:20px; right:20px;
     background:none; border:none; cursor:pointer;
@@ -1064,7 +1070,7 @@
     <h3>Book Your Free Consultation</h3>
     <p>Pick a time that works for you. We'll learn about your business and map out a growth plan together.</p>
     <!-- Calendly inline widget begin -->
-    <div class="calendly-inline-widget" data-url="https://calendly.com/rocciamarketingteam/30min?background_color=0d1030&text_color=ffffff&primary_color=6faebd" style="min-width:320px;height:700px;"></div>
+    <div class="calendly-inline-widget" data-url="https://calendly.com/rocciamarketingteam/30min?background_color=0d1030&text_color=ffffff&primary_color=6faebd" style="min-width:320px;height:80vh;"></div>
     <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
     <!-- Calendly inline widget end -->
   </div>
