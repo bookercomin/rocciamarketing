@@ -22,13 +22,24 @@
     --teal-20: rgba(66,113,133,0.2);
     --sky-15: rgba(111,174,189,0.15);
     --sky-30: rgba(111,174,189,0.30);
+    /* ── DYNAMIC SCROLLING GRADIENT ── */
+.dynamic-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -1; /* Keeps it behind everything */
+  background: linear-gradient(135deg, #0D1030 0%, #427185 150%);
+  transition: background-position 0.1s ease-out;
+}
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   html { scroll-behavior: smooth; font-size: 16px; }
 
-  body {
+  
+   <body>
+  <div class="dynamic-bg" id="dynamic-bg"></div>
     /* Roccia Marketing Apple-Style Mesh Gradient */
     background-color: var(--navy);
 
@@ -37,11 +48,6 @@
     background-position: 0% 0%;
     transition: background-position 0.1s ease-out;
 
-    color: var(--silver);
-    font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
-    cursor: default;
-  }
 
   /* ── SCROLLBAR ── */
   ::-webkit-scrollbar { width: 4px; }
@@ -1070,7 +1076,13 @@
     </div>
   </div>
 </div>
-
+// ── DYNAMIC GRADIENT SCROLL ──
+const bg = document.getElementById('dynamic-bg');
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  // This shifts the background position based on how far you've scrolled
+  bg.style.backgroundPosition = `0% ${scrollY * 0.5}px`;
+});
 <script>
 // ── NAV SCROLL ──
 const nav = document.getElementById('main-nav');
