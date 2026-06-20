@@ -9,7 +9,7 @@
 <meta property="og:description" content="From strategy to full campaigns. We help businesses stand out and scale.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
   :root {
@@ -30,9 +30,19 @@
   html { scroll-behavior: smooth; font-size: 16px; }
 
   body {
-    background: var(--navy);
+    /* Roccia Marketing Apple-Style Mesh Gradient */
+    background-color: var(--navy);
+    background-image: 
+      radial-gradient(circle at 15% 50%, rgba(66, 113, 133, 0.5), transparent 50%),
+      radial-gradient(circle at 85% 30%, rgba(111, 174, 189, 0.6), transparent 50%),
+      radial-gradient(circle at 50% 80%, rgba(13, 16, 48, 0.9), transparent 60%);
+    background-size: 200% 200%;
+    background-attachment: fixed;
+    background-position: 0% 0%;
+    transition: background-position 0.1s ease-out;
+
     color: var(--silver);
-    font-family: 'Inter', sans-serif;
+    font-family: 'Syne', sans-serif;
     overflow-x: hidden;
     cursor: default;
   }
@@ -96,6 +106,7 @@
     align-items: center; justify-content: center;
     text-align: center; overflow: hidden;
     padding: 120px 20px 80px;
+    background: transparent;
   }
   #hero-canvas {
     position: absolute; inset: 0; z-index: 0;
@@ -169,6 +180,7 @@
     border-bottom: 1px solid rgba(111,174,189,0.1);
     display: flex; align-items: center; justify-content: center; gap: 0;
     overflow: hidden;
+    background: transparent;
   }
   .trust-inner {
     display: flex; gap: 80px; align-items: center;
@@ -178,7 +190,7 @@
   @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
   .trust-item {
     font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
-    color: rgba(223,223,227,0.3); font-weight: 500;
+    color: rgba(223,223,227,0.5); font-weight: 500;
     display: flex; align-items: center; gap: 16px;
   }
   .trust-item::after { content:'·'; color: rgba(111,174,189,0.3); font-size: 20px; }
@@ -199,7 +211,7 @@
   #statement {
     min-height: 100vh; display: flex; align-items: center;
     justify-content: center; text-align: center;
-    background: var(--navy); padding: 80px 40px;
+    background: transparent; padding: 80px 40px;
     position: relative; overflow: hidden;
   }
   .statement-bg {
@@ -220,7 +232,7 @@
   }
 
   /* ── SERVICES ── */
-  #services { background: var(--navy); }
+  #services { background: transparent; }
   .services-header { max-width: 620px; margin-bottom: 80px; }
   .services-grid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
@@ -231,6 +243,7 @@
     padding: 48px 40px;
     position: relative; overflow: hidden;
     transition: all 0.35s; cursor: default;
+    backdrop-filter: blur(5px);
   }
   .service-card::before {
     content: '';
@@ -248,13 +261,13 @@
   .service-num {
     position: absolute; top: 32px; right: 32px;
     font-size: 11px; letter-spacing: 2px; color: rgba(111,174,189,0.3);
-    font-family: 'Syne', sans-serif; font-weight: 600;
+    font-weight: 600;
   }
   .service-card h3 {
     font-size: 20px; font-weight: 700; color: var(--white);
     margin-bottom: 12px; letter-spacing: -0.4px;
   }
-  .service-card p { font-size: 14px; line-height: 1.7; color: rgba(223,223,227,0.55); }
+  .service-card p { font-size: 14px; line-height: 1.7; color: rgba(223,223,227,0.65); }
   .service-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
   .service-tag {
     font-size: 11px; padding: 4px 12px; border-radius: 100px;
@@ -264,7 +277,7 @@
 
   /* ── RESULTS ── */
   #results {
-    background: linear-gradient(180deg, var(--navy) 0%, #0a0d28 100%);
+    background: transparent;
     text-align: center;
   }
   .results-header { margin-bottom: 80px; }
@@ -274,49 +287,51 @@
     background: rgba(255,255,255,0.025);
     border: 1px solid rgba(111,174,189,0.07);
     transition: background 0.3s;
+    backdrop-filter: blur(5px);
   }
   .result-block:hover { background: rgba(111,174,189,0.06); }
   .result-num {
-    font-family: 'Syne', sans-serif;
     font-size: clamp(48px,5vw,72px); font-weight: 800;
     letter-spacing: -2px; color: var(--white);
     line-height: 1;
   }
   .result-num span { color: var(--sky); }
   .result-label {
-    font-size: 13px; color: rgba(223,223,227,0.45);
+    font-size: 13px; color: rgba(223,223,227,0.55);
     margin-top: 12px; letter-spacing: 0.5px;
   }
 
   /* ── WHY ROCCIA ── */
-  #why { background: var(--navy); }
+  #why { background: transparent; }
   .why-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
   .why-left { position: sticky; top: 140px; }
-  .why-left p { font-size: 17px; line-height: 1.75; color: rgba(223,223,227,0.55); margin-top: 24px; max-width: 440px; }
+  .why-left p { font-size: 17px; line-height: 1.75; color: rgba(223,223,227,0.65); margin-top: 24px; max-width: 440px; }
   .why-cards { display: flex; flex-direction: column; gap: 2px; }
   .why-card {
     padding: 32px 36px; border: 1px solid rgba(111,174,189,0.08);
     background: rgba(255,255,255,0.02);
     transition: all 0.3s; cursor: default;
+    backdrop-filter: blur(5px);
   }
   .why-card:hover { background: rgba(111,174,189,0.07); border-color: rgba(111,174,189,0.2); }
   .why-card h4 { font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
-  .why-card p { font-size: 14px; color: rgba(223,223,227,0.5); line-height: 1.65; }
+  .why-card p { font-size: 14px; color: rgba(223,223,227,0.6); line-height: 1.65; }
   .why-number {
-    font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+    font-size: 11px; font-weight: 700;
     color: var(--sky); letter-spacing: 2px; margin-bottom: 12px;
   }
 
   /* ── PRICING ── */
-  #pricing { background: #090c24; }
+  #pricing { background: transparent; }
   .pricing-header { text-align: center; margin-bottom: 80px; }
-  .pricing-header p { font-size: 18px; color: rgba(223,223,227,0.5); margin-top: 20px; }
+  .pricing-header p { font-size: 18px; color: rgba(223,223,227,0.6); margin-top: 20px; }
   .pricing-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; max-width: 1300px; margin: 0 auto; }
   .price-card {
     background: rgba(255,255,255,0.03);
     border: 1px solid rgba(111,174,189,0.1);
     padding: 48px 36px; position: relative;
     transition: all 0.3s;
+    backdrop-filter: blur(5px);
   }
   .price-card.featured {
     background: rgba(111,174,189,0.08);
@@ -330,13 +345,13 @@
   }
   .price-name { font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--sky); margin-bottom: 16px; }
   .price-amount {
-    font-family: 'Syne', sans-serif; font-size: 52px; font-weight: 800;
+    font-size: 52px; font-weight: 800;
     color: var(--white); letter-spacing: -2px; line-height: 1;
   }
-  .price-period { font-size: 14px; color: rgba(223,223,227,0.4); margin-bottom: 36px; }
+  .price-period { font-size: 14px; color: rgba(223,223,227,0.5); margin-bottom: 36px; }
   .price-features { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; }
   .price-features li {
-    font-size: 13px; color: rgba(223,223,227,0.65);
+    font-size: 13px; color: rgba(223,223,227,0.75);
     display: flex; gap: 12px; align-items: flex-start; line-height: 1.5;
   }
   .price-features li::before {
@@ -349,7 +364,7 @@
   .price-btn {
     width: 100%; padding: 14px; border-radius: 100px; font-size: 14px; font-weight: 600;
     cursor: pointer; border: 1.5px solid rgba(111,174,189,0.3); background: transparent;
-    color: var(--sky); transition: all 0.25s; letter-spacing: -0.2px;
+    color: var(--sky); transition: all 0.25s; letter-spacing: -0.2px; font-family: 'Syne', sans-serif;
   }
   .price-btn:hover, .price-card.featured .price-btn {
     background: var(--sky); color: var(--navy); border-color: var(--sky);
@@ -357,34 +372,36 @@
 
   /* ── PARTNERSHIP ── */
   #partnership {
-    background: var(--navy);
+    background: transparent;
     display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center;
   }
   .partner-left h2 { margin-bottom: 24px; }
-  .partner-left p { font-size: 17px; line-height: 1.75; color: rgba(223,223,227,0.5); margin-bottom: 48px; }
+  .partner-left p { font-size: 17px; line-height: 1.75; color: rgba(223,223,227,0.6); margin-bottom: 48px; }
   .partner-benefits { display: flex; flex-direction: column; gap: 16px; }
   .partner-benefit {
     display: flex; gap: 16px; align-items: flex-start;
     padding: 20px 24px; border: 1px solid rgba(111,174,189,0.1);
     background: rgba(255,255,255,0.02); border-radius: 4px;
+    backdrop-filter: blur(5px);
   }
   .partner-icon { width: 36px; height: 36px; flex-shrink: 0; }
   .partner-icon svg { width: 20px; height: 20px; stroke: var(--sky); }
   .partner-benefit h4 { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
-  .partner-benefit p { font-size: 13px; color: rgba(223,223,227,0.45); line-height: 1.55; }
+  .partner-benefit p { font-size: 13px; color: rgba(223,223,227,0.55); line-height: 1.55; }
   .partner-right {}
   .form-card {
     background: rgba(255,255,255,0.03); border: 1px solid rgba(111,174,189,0.12);
     padding: 52px 48px; border-radius: 4px;
+    backdrop-filter: blur(10px);
   }
   .form-card h3 { font-size: 26px; font-weight: 700; color: var(--white); margin-bottom: 32px; letter-spacing: -0.5px; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
-  .form-group label { font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase; color: rgba(223,223,227,0.4); }
+  .form-group label { font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase; color: rgba(223,223,227,0.5); }
   .form-group input, .form-group select, .form-group textarea {
     background: rgba(255,255,255,0.04); border: 1px solid rgba(111,174,189,0.15);
     border-radius: 4px; padding: 14px 16px; font-size: 14px;
-    color: var(--white); font-family: 'Inter', sans-serif;
+    color: var(--white); font-family: 'Syne', sans-serif;
     transition: border-color 0.2s; outline: none; width: 100%;
   }
   .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
@@ -396,22 +413,22 @@
     width: 100%; padding: 16px; border-radius: 100px;
     background: var(--sky); color: var(--navy);
     font-size: 15px; font-weight: 600; cursor: pointer; border: none;
-    transition: all 0.25s; margin-top: 8px; font-family: 'Inter', sans-serif;
+    transition: all 0.25s; margin-top: 8px; font-family: 'Syne', sans-serif;
   }
   .form-submit:hover { background: var(--white); transform: translateY(-2px); }
 
   /* ── CONTACT ── */
   #contact {
-    background: #090c24; padding: 140px 60px;
+    background: transparent; padding: 140px 60px;
   }
   .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start; }
   .contact-left h2 { margin-bottom: 24px; }
-  .contact-left p { font-size: 17px; color: rgba(223,223,227,0.5); line-height: 1.75; margin-bottom: 48px; }
+  .contact-left p { font-size: 17px; color: rgba(223,223,227,0.6); line-height: 1.75; margin-bottom: 48px; }
   .contact-details { display: flex; flex-direction: column; gap: 24px; }
   .contact-item { display: flex; gap: 16px; align-items: center; }
   .contact-item-icon { width: 44px; height: 44px; border: 1px solid rgba(111,174,189,0.2); border-radius: 50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
   .contact-item-icon svg { width:18px; height:18px; stroke:var(--sky); }
-  .contact-item-text { font-size: 14px; color: rgba(223,223,227,0.55); }
+  .contact-item-text { font-size: 14px; color: rgba(223,223,227,0.65); }
   .contact-item-text strong { display:block; color:var(--white); font-size:15px; margin-bottom:2px; }
   .social-links { display:flex; gap:12px; margin-top:40px; }
   .social-link {
@@ -424,7 +441,7 @@
 
   /* ── FINAL CTA ── */
   #cta-final {
-    background: var(--navy); padding: 200px 60px;
+    background: transparent; padding: 200px 60px;
     text-align: center; position: relative; overflow: hidden;
   }
   .cta-glow {
@@ -446,18 +463,19 @@
 
   /* ── FOOTER ── */
   footer {
-    background: #060819; padding: 60px 60px 40px;
+    background: rgba(6, 8, 25, 0.6); padding: 60px 60px 40px;
     border-top: 1px solid rgba(111,174,189,0.08);
+    backdrop-filter: blur(15px);
   }
   .footer-top { display:grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap:60px; margin-bottom:60px; }
   .footer-brand .nav-logo { margin-bottom:16px; }
-  .footer-brand p { font-size:13px; color:rgba(223,223,227,0.35); line-height:1.7; max-width:260px; }
-  .footer-col h5 { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:var(--white); letter-spacing:0.5px; margin-bottom:20px; }
+  .footer-brand p { font-size:13px; color:rgba(223,223,227,0.45); line-height:1.7; max-width:260px; }
+  .footer-col h5 { font-size:13px; font-weight:700; color:var(--white); letter-spacing:0.5px; margin-bottom:20px; }
   .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
-  .footer-col ul a { text-decoration:none; font-size:13px; color:rgba(223,223,227,0.35); transition:color 0.2s; }
+  .footer-col ul a { text-decoration:none; font-size:13px; color:rgba(223,223,227,0.45); transition:color 0.2s; }
   .footer-col ul a:hover { color:var(--sky); }
   .footer-bottom { border-top:1px solid rgba(111,174,189,0.08); padding-top:30px; display:flex; justify-content:space-between; align-items:center; }
-  .footer-bottom p { font-size:12px; color:rgba(223,223,227,0.2); }
+  .footer-bottom p { font-size:12px; color:rgba(223,223,227,0.3); }
 
   /* ── CALENDLY MODAL ── */
   .modal-overlay {
@@ -498,20 +516,20 @@
   .reveal-delay-4 { transition-delay:0.4s; }
 
   /* ── BLOG PREVIEW ── */
-  #blog { background:var(--navy); }
+  #blog { background:transparent; }
   .blog-header { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:60px; }
   .blog-grid { display:grid; grid-template-columns: 2fr 1fr 1fr; gap:2px; }
   .blog-card {
     background:rgba(255,255,255,0.025); border:1px solid rgba(111,174,189,0.08);
     padding:40px 36px; cursor:pointer; transition:all 0.3s; text-decoration:none;
-    display:block;
+    display:block; backdrop-filter: blur(5px);
   }
   .blog-card:hover { background:rgba(111,174,189,0.06); border-color:rgba(111,174,189,0.2); }
   .blog-cat { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--sky); margin-bottom:16px; }
   .blog-card h3 { font-size:22px; font-weight:700; color:var(--white); letter-spacing:-0.4px; line-height:1.3; margin-bottom:12px; }
   .blog-card.small h3 { font-size:17px; }
-  .blog-card p { font-size:13px; color:rgba(223,223,227,0.45); line-height:1.65; }
-  .blog-meta { margin-top:24px; font-size:11px; color:rgba(223,223,227,0.3); letter-spacing:0.5px; }
+  .blog-card p { font-size:13px; color:rgba(223,223,227,0.55); line-height:1.65; }
+  .blog-meta { margin-top:24px; font-size:11px; color:rgba(223,223,227,0.4); letter-spacing:0.5px; }
   .blog-img {
     width:100%; height:200px; background:linear-gradient(135deg, rgba(66,113,133,0.3), rgba(13,16,48,0.8));
     border-radius:2px; margin-bottom:24px; overflow:hidden; display:flex; align-items:center; justify-content:center;
@@ -560,7 +578,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav id="main-nav">
   <a href="#" class="nav-logo">
     <img src="Roccia_Marketing_Logo.png" alt="Roccia">
@@ -580,7 +597,6 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
   <canvas id="hero-canvas"></canvas>
   <div class="hero-gradient"></div>
@@ -599,7 +615,6 @@
   </div>
 </section>
 
-<!-- TRUST STRIP -->
 <div class="trust-strip">
   <div class="trust-inner">
     <span class="trust-item">SEO & GEO</span>
@@ -621,7 +636,6 @@
   </div>
 </div>
 
-<!-- STATEMENT -->
 <section id="statement">
   <div class="statement-bg"></div>
   <div class="statement-inner">
@@ -630,7 +644,6 @@
   </div>
 </section>
 
-<!-- SERVICES -->
 <section id="services">
   <div class="services-header reveal">
     <p class="section-eyebrow">What We Do</p>
@@ -694,7 +707,6 @@
   </div>
 </section>
 
-<!-- RESULTS -->
 <section id="results">
   <div class="results-header reveal">
     <p class="section-eyebrow">By The Numbers</p>
@@ -720,7 +732,6 @@
   </div>
 </section>
 
-<!-- WHY ROCCIA -->
 <section id="why">
   <div class="why-layout">
     <div class="why-left reveal">
@@ -755,7 +766,6 @@
   </div>
 </section>
 
-<!-- PRICING -->
 <section id="pricing">
   <div class="pricing-header reveal">
     <p class="section-eyebrow">Pricing</p>
@@ -818,14 +828,12 @@
     </div>
   </div>
 
-  <!-- FAQ -->
   <div style="max-width:700px;margin:80px auto 0;" class="reveal">
     <h3 style="font-size:28px;font-weight:800;color:var(--white);letter-spacing:-0.5px;margin-bottom:32px;">Frequently Asked Questions</h3>
     <div class="faq-list" id="faq-list"></div>
   </div>
 </section>
 
-<!-- PARTNERSHIP -->
 <section id="partnership">
   <div class="partner-left reveal">
     <p class="section-eyebrow">Partnership Program</p>
@@ -896,7 +904,6 @@
   </div>
 </section>
 
-<!-- BLOG -->
 <section id="blog">
   <div class="blog-header reveal">
     <div>
@@ -930,7 +937,6 @@
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="contact-inner">
     <div class="contact-left reveal">
@@ -942,24 +948,21 @@
           <div class="contact-item-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           </div>
-          <div class="contact-item-text"><strong>hello@rocciamarketing.com</strong>We respond within 24 hours</div>
+          <div class="contact-item-text"><strong><a href="mailto:rocciamarketingteam@gmail.com" style="color:var(--white);text-decoration:none;">rocciamarketingteam@gmail.com</a></strong>We respond within 24 hours</div>
         </div>
         <div class="contact-item">
           <div class="contact-item-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.69h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           </div>
-          <div class="contact-item-text"><strong>Book a Free Call</strong>Schedule directly with our team</div>
+          <div class="contact-item-text"><strong><a href="tel:+15093085517" style="color:var(--white);text-decoration:none;">509-308-5517</a></strong>Call or text us directly</div>
         </div>
       </div>
       <div class="social-links">
-        <a href="#" class="social-link" aria-label="Instagram">
+        <a href="https://www.instagram.com/roccia_marketing/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>
         </a>
-        <a href="#" class="social-link" aria-label="LinkedIn">
+        <a href="https://www.linkedin.com/company/rocciamarketing" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-        </a>
-        <a href="#" class="social-link" aria-label="Facebook">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
         </a>
       </div>
     </div>
@@ -1008,7 +1011,6 @@
   </div>
 </section>
 
-<!-- FINAL CTA -->
 <section id="cta-final">
   <div class="cta-glow"></div>
   <p class="section-eyebrow reveal" style="margin-bottom:24px">The Next Step</p>
@@ -1016,7 +1018,6 @@
   <a href="#" class="btn-primary reveal" onclick="openModal();return false;" style="font-size:17px;padding:18px 48px;">Book Your Free Consultation</a>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
@@ -1062,7 +1063,6 @@
   </div>
 </footer>
 
-<!-- CALENDLY MODAL -->
 <div class="modal-overlay" id="modal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">×</button>
@@ -1164,6 +1164,15 @@ function animParticles() {
   requestAnimationFrame(animParticles);
 }
 animParticles();
+
+// ── DYNAMIC GRADIENT SCROLL ──
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  if (maxScroll <= 0) return;
+  const scrollPercent = scrollY / maxScroll;
+  document.body.style.backgroundPosition = `${scrollPercent * 100}% ${scrollPercent * 100}%`;
+});
 
 // ── SCROLL REVEAL ──
 const revealEls = document.querySelectorAll('.reveal');
