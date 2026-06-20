@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Roccia Marketing</title>
+<meta name="description" content="Marketing insights, SEO strategies, AI automation tips, and growth tactics from the Roccia Marketing team.">
+<link rel="stylesheet" href="roccia.css">
+<style>
+  .blog-page { padding: 80px 60px 140px; }
+
+  .blog-search {
+    display:flex; gap:12px; margin-bottom:60px; max-width:500px;
+  }
+  .blog-search input {
+    flex:1; background:rgba(255,255,255,0.04); border:1px solid rgba(111,174,189,0.15);
+    border-radius:100px; padding:14px 20px; font-size:14px; color:var(--white);
+    font-family:'Inter',sans-serif; outline:none; transition:border-color 0.2s;
+  }
+  .blog-search input:focus { border-color:var(--sky); }
+  .blog-search input::placeholder { color:rgba(223,223,227,0.3); }
+  .blog-search button {
+    background:var(--sky); color:var(--navy); border:none; border-radius:100px;
+    padding:14px 24px; font-size:14px; font-weight:600; cursor:pointer;
+    font-family:'Inter',sans-serif; transition:background 0.2s;
+  }
+  .blog-search button:hover { background:var(--white); }
+
+  .blog-cats { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:60px; }
+  .blog-cat-btn {
+    padding:8px 20px; border-radius:100px; font-size:12px; font-weight:500;
+    letter-spacing:0.5px; cursor:pointer; transition:all 0.2s;
+    border:1px solid rgba(111,174,189,0.2); background:transparent; color:rgba(223,223,227,0.55);
+    font-family:'Inter',sans-serif;
+  }
+  .blog-cat-btn.active, .blog-cat-btn:hover { background:var(--sky); color:var(--navy); border-color:var(--sky); }
+
+  /* Featured */
+  .blog-featured {
+    display:grid; grid-template-columns:1.4fr 1fr; gap:2px; margin-bottom:2px;
+  }
+  .blog-featured-card {
+    background:rgba(255,255,255,0.025); border:1px solid rgba(111,174,189,0.08);
+    padding:52px 48px; text-decoration:none; display:block; transition:all 0.3s;
+    position:relative;
+  }
+  .blog-featured-card:hover { background:rgba(111,174,189,0.06); border-color:rgba(111,174,189,0.2); }
+  .blog-featured-img { width:100%; height:220px; background:linear-gradient(135deg, rgba(66,113,133,0.25), rgba(13,16,48,0.8)); border-radius:2px; margin-bottom:28px; display:flex; align-items:center; justify-content:center; }
+  .blog-featured-img svg { width:48px; height:48px; stroke:rgba(111,174,189,0.3); }
+  .blog-featured-tag { display:inline-block; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--sky); margin-bottom:14px; }
+  .blog-featured-card h2 { font-size:clamp(22px,2.5vw,30px); font-weight:800; color:var(--white); letter-spacing:-0.5px; line-height:1.25; margin-bottom:14px; }
+  .blog-featured-card p { font-size:14px; color:rgba(223,223,227,0.5); line-height:1.7; }
+  .blog-featured-meta { margin-top:24px; font-size:11px; color:rgba(223,223,227,0.35); letter-spacing:0.5px; }
+
+  /* Grid */
+  .blog-all-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:2px; }
+
+  @media(max-width:1024px) {
+    .blog-page { padding:60px 32px 100px; }
+    .blog-featured { grid-template-columns:1fr; }
+    .blog-all-grid { grid-template-columns:1fr 1fr; }
+  }
+  @media(max-width:768px) {
+    .blog-page { padding:60px 24px 80px; }
+    .blog-all-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-hero">
+  <div class="page-hero-glow"></div>
+  <p class="page-hero-eyebrow reveal">Insights</p>
+  <h1 class="reveal">Ideas that move<br><em>business forward.</em></h1>
+  <p class="reveal reveal-delay-1">Marketing strategy, SEO tips, AI workflows, and growth playbooks — written for business owners, not academics.</p>
+</div>
+
+<div class="blog-page">
+
+  <!-- SEARCH + CATEGORIES -->
+  <div class="reveal">
+    <div class="blog-search">
+      <input type="text" placeholder="Search articles…">
+      <button>Search</button>
+    </div>
+    <div class="blog-cats">
+      <button class="blog-cat-btn active">All</button>
+      <button class="blog-cat-btn">SEO</button>
+      <button class="blog-cat-btn">GEO</button>
+      <button class="blog-cat-btn">AI Marketing</button>
+      <button class="blog-cat-btn">Paid Advertising</button>
+      <button class="blog-cat-btn">Social Media</button>
+      <button class="blog-cat-btn">Business Growth</button>
+      <button class="blog-cat-btn">Website Design</button>
+    </div>
+  </div>
+
+  <!-- FEATURED ROW -->
+  <div class="blog-featured">
+    <a href="#" class="blog-featured-card reveal" style="text-decoration:none;">
+      <div class="blog-featured-img"><svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
+      <span class="blog-featured-tag">SEO & GEO</span>
+      <h2>Why AI Search is Rewriting the Rules of SEO in 2025</h2>
+      <p>Generative Engine Optimization is the new frontier. Here's what SMBs need to know to stay visible as AI reshapes how people find businesses online.</p>
+      <div class="blog-featured-meta">8 min read · June 2025</div>
+    </a>
+    <div style="display:flex;flex-direction:column;gap:2px;">
+      <a href="#" class="blog-featured-card reveal reveal-delay-1" style="text-decoration:none;flex:1;">
+        <span class="blog-featured-tag">AI Marketing</span>
+        <h2 style="font-size:20px;">5 AI Workflows That Cut Your Marketing Time in Half</h2>
+        <p>From lead qualification to content scheduling, these automations are already working for our clients.</p>
+        <div class="blog-featured-meta">5 min read · May 2025</div>
+      </a>
+      <a href="#" class="blog-featured-card reveal reveal-delay-2" style="text-decoration:none;flex:1;">
+        <span class="blog-featured-tag">Paid Advertising</span>
+        <h2 style="font-size:20px;">The Meta Ads Strategy Scaling Home Service Businesses</h2>
+        <p>A deep dive into the campaign structure driving the strongest ROI for local businesses this quarter.</p>
+        <div class="blog-featured-meta">6 min read · April 2025</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ALL ARTICLES -->
+  <div style="margin-top:60px;" class="reveal">
+    <p class="section-eyebrow">All Articles</p>
+    <h3 class="section-h2" style="font-size:clamp(28px,3vw,40px);margin-bottom:40px;">More from Roccia</h3>
+  </div>
+  <div class="blog-all-grid">
+    <a href="#" class="blog-card reveal" style="text-decoration:none;">
+      <div class="blog-cat">Business Growth</div>
+      <h3>How Home Service Businesses Can Double Leads in 90 Days</h3>
+      <p>A step-by-step look at the combined organic + paid strategy that's consistently producing results for local contractors and service companies.</p>
+      <div class="blog-meta">7 min read · March 2025</div>
+    </a>
+    <a href="#" class="blog-card reveal reveal-delay-1" style="text-decoration:none;">
+      <div class="blog-cat">Social Media</div>
+      <h3>The 3-Post Formula That Drives Consistent Engagement</h3>
+      <p>Most businesses post randomly. Here's the framework our team uses to build audiences that actually convert to customers.</p>
+      <div class="blog-meta">4 min read · February 2025</div>
+    </a>
+    <a href="#" class="blog-card reveal reveal-delay-2" style="text-decoration:none;">
+      <div class="blog-cat">GEO</div>
+      <h3>What Is Generative Engine Optimization — And Why It Matters Now</h3>
+      <p>If your business isn't showing up in AI-generated answers, you're losing customers you don't even know about. Here's how to fix that.</p>
+      <div class="blog-meta">6 min read · January 2025</div>
+    </a>
+    <a href="#" class="blog-card reveal" style="text-decoration:none;">
+      <div class="blog-cat">SEO</div>
+      <h3>Local SEO in 2025: The Complete Checklist for SMBs</h3>
+      <p>Google Maps, local listings, reviews, and structured data — everything you need to dominate search in your city.</p>
+      <div class="blog-meta">9 min read · December 2024</div>
+    </a>
+    <a href="#" class="blog-card reveal reveal-delay-1" style="text-decoration:none;">
+      <div class="blog-cat">AI Marketing</div>
+      <h3>How We Use AI to Write Better Ad Copy Faster</h3>
+      <p>The exact process our team uses to generate, test, and refine ad copy using AI — without losing the human edge that converts.</p>
+      <div class="blog-meta">5 min read · November 2024</div>
+    </a>
+    <a href="#" class="blog-card reveal reveal-delay-2" style="text-decoration:none;">
+      <div class="blog-cat">Business Growth</div>
+      <h3>Why Most Small Business Marketing Fails (And How to Fix It)</h3>
+      <p>The same three mistakes show up in almost every small business we work with. Here's why they happen and how to avoid them.</p>
+      <div class="blog-meta">6 min read · October 2024</div>
+    </a>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-final-section reveal">
+  <div class="cta-glow"></div>
+  <p class="section-eyebrow" style="margin-bottom:24px">Want Results, Not Just Reads?</p>
+  <h2 class="cta-final-h2">Let's apply this<br><em>to your business.</em></h2>
+  <a href="#" class="btn-primary" onclick="openModal();return false;" style="font-size:17px;padding:18px 48px;">Book Free Consultation</a>
+</div>
+
+<script src="roccia-shared.js"></script>
+<script>
+  // Category filter interactivity
+  document.querySelectorAll('.blog-cat-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.blog-cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
