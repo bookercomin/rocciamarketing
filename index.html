@@ -870,39 +870,44 @@
       </div>
     </div>
   </div>
-  <div class="partner-right reveal reveal-delay-2">
+ <div class="partner-right reveal reveal-delay-2">
     <div class="form-card">
       <h3>Become a Partner</h3>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Your Name</label>
-          <input type="text" placeholder="Alex Johnson">
+      <form action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="01f65961-b473-4311-a333-c3708ce5c62a">
+        <input type="hidden" name="subject" value="New Partnership Application — Roccia Marketing">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" name="name" placeholder="Alex Johnson" required>
+          </div>
+          <div class="form-group">
+            <label>Business Name</label>
+            <input type="text" name="business_name" placeholder="Your Company" required>
+          </div>
         </div>
         <div class="form-group">
-          <label>Business Name</label>
-          <input type="text" placeholder="Your Company">
+          <label>Website</label>
+          <input type="url" name="website" placeholder="https://yoursite.com">
         </div>
-      </div>
-      <div class="form-group">
-        <label>Website</label>
-        <input type="url" placeholder="https://yoursite.com">
-      </div>
-      <div class="form-group">
-        <label>Partnership Type</label>
-        <select>
-          <option>Referral Partner</option>
-          <option>Strategic Collaboration</option>
-          <option>White-Label Services</option>
-          <option>Affiliate Program</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Message</label>
-        <textarea placeholder="Tell us about your business and how we can grow together…"></textarea>
-      </div>
-      <button class="form-submit">Submit Application</button>
+        <div class="form-group">
+          <label>Partnership Type</label>
+          <select name="partnership_type">
+            <option>Referral Partner</option>
+            <option>Strategic Collaboration</option>
+            <option>White-Label Services</option>
+            <option>Affiliate Program</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea name="message" placeholder="Tell us about your business and how we can grow together…"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Submit Application</button>
+      </form>
     </div>
   </div>
+</section>
 </section>
 
 <section id="blog">
