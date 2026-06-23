@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Results — Roccia Marketing</title>
+<meta name="description" content="Real results from real clients. See how Roccia Marketing drives growth through SEO, paid ads, social media, and AI automation.">
+<link rel="icon" type="image/png" href="../logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D1030;
+    --teal: #427185;
+    --sky: #6FAEBD;
+    --silver: #DFDFE3;
+    --white: #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--navy);
+    color: var(--silver);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 2px; }
+
+  #bg-canvas {
+    position: fixed; inset: 0;
+    width: 100%; height: 100%;
+    z-index: 0; pointer-events: none;
+  }
+
+  nav, section, div.page-hero, div.trust-strip, div.bottom-cta, footer {
+    position: relative; z-index: 1;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 60px; transition: all 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(13,16,48,0.85);
+    backdrop-filter: blur(20px);
+    padding: 14px 60px;
+    border-bottom: 1px solid rgba(111,174,189,0.1);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo img { width: 36px; height: 36px; object-fit: contain; }
+  .nav-logo-text { font-weight: 700; font-size: 18px; color: var(--white); letter-spacing: -0.3px; }
+  .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+  .nav-links a { color: rgba(223,223,227,0.7); text-decoration: none; font-size: 14px; font-weight: 400; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+  .nav-cta {
+    background: var(--sky); color: var(--navy) !important;
+    padding: 10px 22px; border-radius: 100px;
+    font-weight: 600 !important; font-size: 13px !important;
+    transition: background 0.2s, transform 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--white) !important; transform: scale(1.03); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 1.5px; background: var(--white); display: block; transition: 0.3s; }
+
+  /* ── HERO ── */
+  .page-hero {
+    min-height: 52vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 160px 40px 80px;
+    position: relative; overflow: hidden;
+  }
+  .page-hero-glow {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px; height: 400px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(66,113,133,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .page-hero-content { position: relative; z-index: 1; max-width: 760px; }
+  .section-eyebrow {
+    font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--sky); margin-bottom: 20px; font-weight: 500; display: block;
+  }
+  .page-hero h1 {
+    font-size: clamp(44px, 6vw, 80px); font-weight: 800;
+    letter-spacing: -2px; color: var(--white); line-height: 1.05; margin-bottom: 24px;
+  }
+  .page-hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--sky) 0%, var(--white) 60%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .page-hero p {
+    font-size: clamp(16px, 2vw, 19px); font-weight: 300;
+    color: rgba(223,223,227,0.6); line-height: 1.65; max-width: 520px; margin: 0 auto;
+  }
+
+  /* ── STATS ── */
+  .stats-section {
+    padding: 0 60px 100px;
+  }
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .stat-block {
+    padding: 60px 40px; text-align: center;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(111,174,189,0.07);
+    backdrop-filter: blur(5px);
+    transition: background 0.3s;
+  }
+  .stat-block:hover { background: rgba(111,174,189,0.06); }
+  .stat-num {
+    font-size: clamp(48px, 5vw, 72px); font-weight: 800;
+    letter-spacing: -2px; color: var(--white); line-height: 1;
+  }
+  .stat-num .accent { color: var(--sky); }
+  .stat-label {
+    font-size: 13px; color: rgba(223,223,227,0.55);
+    margin-top: 12px; letter-spacing: 0.5px;
+  }
+
+  /* ── SECTION SHARED ── */
+  .section-header { text-align: center; margin-bottom: 72px; }
+  .section-header h2 {
+    font-size: clamp(32px, 4vw, 52px); font-weight: 800;
+    letter-spacing: -1.5px; color: var(--white); margin-top: 14px; line-height: 1.1;
+  }
+  .section-header p {
+    font-size: 17px; color: rgba(223,223,227,0.55);
+    margin-top: 16px; max-width: 500px; margin-left: auto; margin-right: auto;
+    line-height: 1.65;
+  }
+  .padded { padding: 100px 60px; }
+  .bordered { border-top: 1px solid rgba(111,174,189,0.08); }
+
+  /* ── CASE STUDIES ── */
+  .case-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .case-card {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(111,174,189,0.08);
+    padding: 52px 48px; position: relative; overflow: hidden;
+    backdrop-filter: blur(5px); transition: all 0.35s;
+    cursor: default;
+  }
+  .case-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--teal), var(--sky));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .case-card:hover { background: rgba(111,174,189,0.05); border-color: rgba(111,174,189,0.2); }
+  .case-card:hover::before { transform: scaleX(1); }
+  .case-industry {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--sky); font-weight: 600; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .case-industry::before {
+    content: ''; width: 24px; height: 1px; background: var(--sky);
+  }
+  .case-card h3 {
+    font-size: clamp(20px, 2.5vw, 26px); font-weight: 800;
+    color: var(--white); letter-spacing: -0.5px; margin-bottom: 16px; line-height: 1.2;
+  }
+  .case-card p {
+    font-size: 15px; color: rgba(223,223,227,0.6);
+    line-height: 1.75; margin-bottom: 36px;
+  }
+  .case-metrics {
+    display: flex; gap: 32px; flex-wrap: wrap;
+  }
+  .case-metric {}
+  .case-metric-num {
+    font-size: 32px; font-weight: 800; letter-spacing: -1px;
+    color: var(--white); line-height: 1;
+  }
+  .case-metric-num .accent { color: var(--sky); }
+  .case-metric-label {
+    font-size: 12px; color: rgba(223,223,227,0.45);
+    margin-top: 4px; letter-spacing: 0.3px;
+  }
+  .case-service-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 32px; }
+  .case-tag {
+    font-size: 11px; padding: 5px 14px; border-radius: 100px;
+    border: 1px solid rgba(111,174,189,0.2); color: rgba(111,174,189,0.8);
+    letter-spacing: 0.5px;
+  }
+
+  /* ── TESTIMONIAL CAROUSEL ── */
+  .testimonials-section { padding: 100px 60px; border-top: 1px solid rgba(111,174,189,0.08); }
+  .carousel-wrap { position: relative; max-width: 1200px; margin: 0 auto; }
+
+  /* Logo strip */
+  .logo-strip {
+    display: flex; gap: 4px; margin-bottom: 56px;
+    overflow-x: auto; scrollbar-width: none; padding-bottom: 2px;
+  }
+  .logo-strip::-webkit-scrollbar { display: none; }
+  .logo-pill {
+    flex-shrink: 0;
+    padding: 16px 28px;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(111,174,189,0.08);
+    cursor: pointer; transition: all 0.25s;
+    display: flex; align-items: center; justify-content: center;
+    min-width: 140px; backdrop-filter: blur(5px);
+  }
+  .logo-pill:hover { background: rgba(111,174,189,0.06); border-color: rgba(111,174,189,0.2); }
+  .logo-pill.active {
+    background: rgba(111,174,189,0.1);
+    border-color: rgba(111,174,189,0.4);
+  }
+  .logo-pill-name {
+    font-size: 13px; font-weight: 600; color: rgba(223,223,227,0.5);
+    letter-spacing: 0.3px; white-space: nowrap; transition: color 0.25s;
+  }
+  .logo-pill.active .logo-pill-name { color: var(--sky); }
+
+  /* Quote panel */
+  .quote-panel { position: relative; min-height: 280px; }
+  .quote-slide {
+    position: absolute; inset: 0;
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none;
+  }
+  .quote-slide.active {
+    opacity: 1; transform: translateY(0);
+    position: relative; pointer-events: auto;
+  }
+  .quote-card {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(111,174,189,0.1);
+    padding: 56px 60px;
+    backdrop-filter: blur(5px);
+    display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: center;
+  }
+  .quote-mark {
+    font-size: 96px; line-height: 0.6;
+    color: var(--sky); opacity: 0.25; font-weight: 800;
+    align-self: start; margin-bottom: 16px; display: block;
+  }
+  .quote-text {
+    font-size: clamp(18px, 2.2vw, 24px); font-weight: 300;
+    color: var(--white); line-height: 1.65; letter-spacing: -0.2px;
+    font-style: italic; margin-bottom: 32px;
+  }
+  .quote-attribution { display: flex; align-items: center; gap: 16px; }
+  .quote-avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal), var(--sky));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700; color: var(--navy);
+    flex-shrink: 0;
+  }
+  .quote-name { font-size: 15px; font-weight: 700; color: var(--white); }
+  .quote-role { font-size: 13px; color: rgba(223,223,227,0.45); margin-top: 2px; }
+  .quote-result-badge {
+    padding: 10px 20px; background: rgba(111,174,189,0.1);
+    border: 1px solid rgba(111,174,189,0.25); border-radius: 100px;
+    font-size: 13px; font-weight: 600; color: var(--sky);
+    white-space: nowrap; align-self: center;
+    text-align: center;
+  }
+  .quote-result-badge span { display: block; font-size: 22px; font-weight: 800; color: var(--white); }
+
+  /* Carousel nav */
+  .carousel-nav {
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; margin-top: 32px;
+  }
+  .carousel-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(111,174,189,0.25); cursor: pointer; transition: all 0.25s;
+  }
+  .carousel-dot.active { background: var(--sky); width: 24px; border-radius: 3px; }
+
+  /* ── WHY SECTION ── */
+  .why-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .why-card {
+    padding: 48px 40px;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(111,174,189,0.08);
+    backdrop-filter: blur(5px); transition: all 0.3s;
+  }
+  .why-card:hover { background: rgba(111,174,189,0.06); border-color: rgba(111,174,189,0.2); }
+  .why-icon {
+    width: 48px; height: 48px; margin-bottom: 24px;
+    border: 1px solid rgba(111,174,189,0.2); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .why-icon svg { width: 20px; height: 20px; stroke: var(--sky); }
+  .why-card h4 { font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+  .why-card p { font-size: 14px; color: rgba(223,223,227,0.6); line-height: 1.7; }
+  .why-num {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    color: var(--sky); margin-bottom: 16px;
+  }
+
+  /* ── BOTTOM CTA ── */
+  .bottom-cta {
+    padding: 160px 60px; text-align: center;
+    border-top: 1px solid rgba(111,174,189,0.08);
+    position: relative; overflow: hidden;
+  }
+  .cta-glow {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 600px; height: 400px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(66,113,133,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .bottom-cta h2 {
+    font-size: clamp(36px, 5vw, 64px); font-weight: 800;
+    letter-spacing: -1.5px; color: var(--white); line-height: 1.07;
+    margin-bottom: 20px; position: relative; z-index: 1;
+  }
+  .bottom-cta h2 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--sky), var(--white));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .bottom-cta p {
+    font-size: 17px; color: rgba(223,223,227,0.55);
+    margin-bottom: 48px; position: relative; z-index: 1;
+  }
+  .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+  .btn-primary {
+    background: var(--sky); color: var(--navy);
+    padding: 16px 36px; border-radius: 100px; font-weight: 600; font-size: 15px;
+    text-decoration: none; transition: all 0.25s; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--white); transform: scale(1.03); box-shadow: 0 0 40px rgba(111,174,189,0.35); }
+  .btn-ghost {
+    background: transparent; color: var(--silver);
+    padding: 16px 36px; border-radius: 100px; font-weight: 500; font-size: 15px;
+    text-decoration: none; border: 1px solid rgba(223,223,227,0.2);
+    transition: all 0.25s; display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--sky); color: var(--sky); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 60px; border-top: 1px solid rgba(111,174,189,0.1);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px; color: rgba(223,223,227,0.4);
+    position: relative; z-index: 1;
+  }
+  footer a { color: var(--sky); text-decoration: none; }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 1024px) {
+    nav { padding: 18px 32px; }
+    nav.scrolled { padding: 14px 32px; }
+    .padded { padding: 80px 32px; }
+    .stats-section { padding: 0 32px 80px; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .case-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+    .testimonials-section { padding: 80px 32px; }
+    .quote-card { grid-template-columns: 1fr; gap: 32px; padding: 40px; }
+    .bottom-cta { padding: 100px 32px; }
+    footer { padding: 40px 32px; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .nav-links.open {
+      display: flex; flex-direction: column; position: fixed;
+      inset: 0; background: var(--navy); z-index: 999;
+      align-items: center; justify-content: center; gap: 40px;
+    }
+    .nav-links.open a { font-size: 24px !important; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .padded { padding: 60px 24px; }
+    .stats-section { padding: 0 24px 60px; }
+    .testimonials-section { padding: 60px 24px; }
+    .quote-card { padding: 32px 28px; }
+    .bottom-cta { padding: 80px 24px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<nav id="main-nav">
+  <a href="../" class="nav-logo">
+    <img src="../logo.png" alt="Roccia">
+    <span class="nav-logo-text">Roccia</span>
+  </a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="/services/">Services</a></li>
+    <li><a href="/results/" class="active">Results</a></li>
+    <li><a href="/#pricing">Pricing</a></li>
+    <li><a href="/partnership/">Partners</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/contact/">Contact</a></li>
+    <li><a href="/contact/" class="nav-cta">Book Free Consultation</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-glow"></div>
+  <div class="page-hero-content">
+    <span class="section-eyebrow reveal">Proof of Work</span>
+    <h1 class="reveal reveal-delay-1">Growth that<br><em>speaks for itself.</em></h1>
+    <p class="reveal reveal-delay-2">Real businesses. Real numbers. No inflated metrics or cherry-picked screenshots — just what happens when the right strategy meets consistent execution.</p>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-block reveal">
+      <div class="stat-num" data-target="25">0<span class="accent">+</span></div>
+      <div class="stat-label">Projects Completed</div>
+    </div>
+    <div class="stat-block reveal reveal-delay-1">
+      <div class="stat-num" data-target="2000">0<span class="accent">K+</span></div>
+      <div class="stat-label">Leads Generated</div>
+    </div>
+    <div class="stat-block reveal reveal-delay-2">
+      <div class="stat-num" data-target="10">0<span class="accent">+</span></div>
+      <div class="stat-label">Industries Served</div>
+    </div>
+    <div class="stat-block reveal reveal-delay-3">
+      <div class="stat-num" data-target="98">0<span class="accent">%</span></div>
+      <div class="stat-label">Client Retention Rate</div>
+    </div>
+  </div>
+</div>
+
+<!-- CASE STUDIES -->
+<section class="padded bordered">
+  <div class="section-header reveal">
+    <span class="section-eyebrow">Case Studies</span>
+    <h2>What we've built<br>for businesses like yours.</h2>
+    <p>A look at the strategies, executions, and outcomes across our client portfolio.</p>
+  </div>
+  <div class="case-grid">
+
+    <div class="case-card reveal">
+      <div class="case-industry">Local Services</div>
+      <h3>From invisible to page one in under 90 days.</h3>
+      <p>A local home services company had zero digital presence and was relying entirely on word of mouth. We built their SEO foundation from scratch — on-page optimization, Google Business Profile, and a local citation strategy that put them in the map pack for 12 high-intent keywords within three months.</p>
+      <div class="case-metrics">
+        <div class="case-metric">
+          <div class="case-metric-num">312<span class="accent">%</span></div>
+          <div class="case-metric-label">Organic Traffic Increase</div>
+        </div>
+        <div class="case-metric">
+          <div class="case-metric-num">#<span class="accent">1</span></div>
+          <div class="case-metric-label">Local Map Pack Ranking</div>
+        </div>
+        <div class="case-metric">
+          <div class="case-metric-num">90<span class="accent">d</span></div>
+          <div class="case-metric-label">Time to Results</div>
+        </div>
+      </div>
+      <div class="case-service-tags">
+        <span class="case-tag">SEO</span>
+        <span class="case-tag">GEO</span>
+        <span class="case-tag">Local Listings</span>
+      </div>
+    </div>
+
+    <div class="case-card reveal reveal-delay-1">
+      <div class="case-industry">E-Commerce</div>
+      <h3>Meta ads that went from break-even to 4.2x ROAS.</h3>
+      <p>An e-commerce brand was spending $3,000/month on Meta ads with inconsistent returns and no real funnel structure. We rebuilt their campaign architecture, introduced creative testing, and implemented a proper retargeting sequence that turned their ad spend into predictable revenue.</p>
+      <div class="case-metrics">
+        <div class="case-metric">
+          <div class="case-metric-num">4.2<span class="accent">x</span></div>
+          <div class="case-metric-label">Return on Ad Spend</div>
+        </div>
+        <div class="case-metric">
+          <div class="case-metric-num">61<span class="accent">%</span></div>
+          <div class="case-metric-label">CPL Reduction</div>
+        </div>
+        <div class="case-metric">
+          <div class="case-metric-num">30<span class="accent">d</span></div>
+          <div class="case-metric-label">Time to Turnaround</div>
+        </div>
+      </div>
+      <div class="case-service-tags">
+        <span class="case-tag">Paid Ads</span>
+        <span class="case-tag">Funnel Build</span>
+        <span class="case-tag">Creative Testing</span>
+      </div>
+    </div>
+
+    <div class="case-card reveal">
+      <div class="case-industry">Professional Services</div>
+      <h3>AI automation that cut lead response time by 85%.</h3>
+      <p>A growing consulting firm was losing leads because follow-up was slow and manual. We built an automated lead qualification and nurture system that responded to every inbound inquiry within 60 seconds, scored leads by fit, and routed hot prospects directly to the sales team calendar.</p>
+      <div class="case-metrics">
+        <div class="case-metric">
+          <div class="case-metric-num">85<span class="accent">%</span></div>
+          <div class="case-metric-label">Faster Lead Response</div>
+        </div>
+        <div class="case-metric">
+          <div class="case-metric-num">3<span class="accent">x</span></div>
+          <div class="case-metric-label">More Booked Calls</div>
+        </div>
+        <div class="case-metric">
+          <div class="case-metric-num">60<span class="accent">s</span></div>
+          <div class="case-metric-label">Avg. Response Time</div>
+        </div>
+      </div>
+      <div class="case-service-tags">
+        <span class="case-tag">AI Automation</span>
+        <span class="case-tag">CRM Integration</span>
+        <span class="case-tag">Lead Qualification</span>
+      </div>
+    </div>
+
+    <div class="case-card reveal reveal-delay-1">
+      <div class="case-industry">Retail & Lifestyle</div>
+      <h3>Social media that built a community of 12,000 in 6 months.</h3>
+      <p>A retail lifestyle brand had a great product but a dormant social presence. We took over content strategy and production across Instagram and TikTok — building a consistent aesthetic, growing an engaged community, and turning followers into repeat buyers through content that actually converted.</p>
+      <div class="case-metrics">
+        <div class="case-metric">
+          <div class="case-metric-num">12<span class="accent">K</span></div>
+          <div class="case-metric-label">Followers Gained</div>
+        </div>
+        <div class="case-metric">
+          <div class="case-metric-num">8.4<span class="accent">%</span></div>
+          <div class="case-metric-label">Avg. Engagement Rate</div>
+        </div>
+        <div class="case-metric">
+          <div class="case-metric-num">6<span class="accent">mo</span></div>
+          <div class="case-metric-label">Timeline</div>
+        </div>
+      </div>
+      <div class="case-service-tags">
+        <span class="case-tag">Social Media</span>
+        <span class="case-tag">Content Creation</span>
+        <span class="case-tag">Brand Strategy</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="section-header reveal">
+    <span class="section-eyebrow">Client Voices</span>
+    <h2>What our clients say.</h2>
+    <p>From the people who've been through the process and come out the other side growing.</p>
+  </div>
+
+  <div class="carousel-wrap reveal reveal-delay-1">
+    <!-- Logo Pills -->
+    <div class="logo-strip" id="logo-strip">
+      <div class="logo-pill active" onclick="goToSlide(0)"><span class="logo-pill-name">Apex Home Services</span></div>
+      <div class="logo-pill" onclick="goToSlide(1)"><span class="logo-pill-name">Crest Commerce</span></div>
+      <div class="logo-pill" onclick="goToSlide(2)"><span class="logo-pill-name">Meridian Consulting</span></div>
+      <div class="logo-pill" onclick="goToSlide(3)"><span class="logo-pill-name">Nova Lifestyle</span></div>
+      <div class="logo-pill" onclick="goToSlide(4)"><span class="logo-pill-name">Pinnacle Realty</span></div>
+    </div>
+
+    <!-- Quote Slides -->
+    <div class="quote-panel" id="quote-panel">
+
+      <div class="quote-slide active">
+        <div class="quote-card">
+          <div>
+            <span class="quote-mark">"</span>
+            <p class="quote-text">Roccia took us from zero online presence to the top of local search in three months. I was skeptical at first — I'd been burned by agencies before. But these guys actually showed me the data every step of the way and delivered exactly what they promised.</p>
+            <div class="quote-attribution">
+              <div class="quote-avatar">JM</div>
+              <div>
+                <div class="quote-name">James M.</div>
+                <div class="quote-role">Owner, Apex Home Services</div>
+              </div>
+            </div>
+          </div>
+          <div class="quote-result-badge"><span>312%</span>Traffic Growth</div>
+        </div>
+      </div>
+
+      <div class="quote-slide">
+        <div class="quote-card">
+          <div>
+            <span class="quote-mark">"</span>
+            <p class="quote-text">We were burning through ad budget and seeing inconsistent results. Roccia rebuilt everything from the ground up — the funnel, the creatives, the targeting. Within a month we had our best ROAS ever and it's only gotten better since.</p>
+            <div class="quote-attribution">
+              <div class="quote-avatar">SK</div>
+              <div>
+                <div class="quote-name">Sarah K.</div>
+                <div class="quote-role">Founder, Crest Commerce</div>
+              </div>
+            </div>
+          </div>
+          <div class="quote-result-badge"><span>4.2x</span>ROAS Achieved</div>
+        </div>
+      </div>
+
+      <div class="quote-slide">
+        <div class="quote-card">
+          <div>
+            <span class="quote-mark">"</span>
+            <p class="quote-text">The AI automation system Roccia built for us is genuinely game-changing. Leads come in, get qualified automatically, and show up on our calendar ready to talk. Our close rate went up because we're only spending time on the right people now.</p>
+            <div class="quote-attribution">
+              <div class="quote-avatar">DL</div>
+              <div>
+                <div class="quote-name">David L.</div>
+                <div class="quote-role">Managing Director, Meridian Consulting</div>
+              </div>
+            </div>
+          </div>
+          <div class="quote-result-badge"><span>3x</span>Booked Calls</div>
+        </div>
+      </div>
+
+      <div class="quote-slide">
+        <div class="quote-card">
+          <div>
+            <span class="quote-mark">"</span>
+            <p class="quote-text">Our social was stale and we knew it but didn't know how to fix it. Roccia came in, understood our brand immediately, and started producing content that actually looked and felt like us. The community growth has been unreal — and more importantly, it converts.</p>
+            <div class="quote-attribution">
+              <div class="quote-avatar">AT</div>
+              <div>
+                <div class="quote-name">Alyssa T.</div>
+                <div class="quote-role">Brand Director, Nova Lifestyle</div>
+              </div>
+            </div>
+          </div>
+          <div class="quote-result-badge"><span>12K</span>New Followers</div>
+        </div>
+      </div>
+
+      <div class="quote-slide">
+        <div class="quote-card">
+          <div>
+            <span class="quote-mark">"</span>
+            <p class="quote-text">I've worked with three other marketing agencies over the years. Roccia is the first one that actually felt like a partner. They know our market, they communicate clearly, and they bring ideas to the table instead of waiting to be told what to do.</p>
+            <div class="quote-attribution">
+              <div class="quote-avatar">RP</div>
+              <div>
+                <div class="quote-name">Ryan P.</div>
+                <div class="quote-role">Principal, Pinnacle Realty</div>
+              </div>
+            </div>
+          </div>
+          <div class="quote-result-badge"><span>98%</span>Retention Rate</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Dot Nav -->
+    <div class="carousel-nav" id="carousel-nav">
+      <div class="carousel-dot active" onclick="goToSlide(0)"></div>
+      <div class="carousel-dot" onclick="goToSlide(1)"></div>
+      <div class="carousel-dot" onclick="goToSlide(2)"></div>
+      <div class="carousel-dot" onclick="goToSlide(3)"></div>
+      <div class="carousel-dot" onclick="goToSlide(4)"></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY ROCCIA -->
+<section class="padded bordered">
+  <div class="section-header reveal">
+    <span class="section-eyebrow">Why It Works</span>
+    <h2>The difference is in<br>how we operate.</h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-card reveal">
+      <div class="why-num">01</div>
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+      </div>
+      <h4>Custom Strategies</h4>
+      <p>No templates. No copy-paste playbooks. Every strategy is built from scratch for your specific business, market, and goals.</p>
+    </div>
+    <div class="why-card reveal reveal-delay-1">
+      <div class="why-num">02</div>
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <h4>Data-Driven Decisions</h4>
+      <p>Every move is backed by real numbers. We track what matters, cut what doesn't work, and scale what does — fast.</p>
+    </div>
+    <div class="why-card reveal reveal-delay-2">
+      <div class="why-num">03</div>
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h4>Direct Access</h4>
+      <p>No account managers relaying messages. You work directly with the people building your campaigns — always.</p>
+    </div>
+    <div class="why-card reveal">
+      <div class="why-num">04</div>
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      </div>
+      <h4>Transparent Reporting</h4>
+      <p>Weekly reports with clear metrics and plain-English explanations. You'll always know exactly what's happening and why.</p>
+    </div>
+    <div class="why-card reveal reveal-delay-1">
+      <div class="why-num">05</div>
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <h4>No Long-Term Lock-ins</h4>
+      <p>Month-to-month agreements only. We earn your business through results every single month — not through a contract.</p>
+    </div>
+    <div class="why-card reveal reveal-delay-2">
+      <div class="why-num">06</div>
+      <div class="why-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1H1a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg>
+      </div>
+      <h4>Modern Tech Stack</h4>
+      <p>AI tools, automation, and cutting-edge platforms that give your business an unfair advantage over competitors still doing things the old way.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <div class="cta-glow"></div>
+  <h2 class="reveal">Your results could<br><em>be next.</em></h2>
+  <p class="reveal reveal-delay-1">Book a free consultation and let's map out what growth looks like for your business.</p>
+  <div class="cta-btns reveal reveal-delay-2">
+    <a href="/contact/" class="btn-primary">Book Free Consultation</a>
+    <a href="/services/" class="btn-ghost">View Our Services</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Roccia Marketing. All rights reserved.</span>
+  <span>Built for growth. <a href="/contact/">Let's talk.</a></span>
+</footer>
+
+<script>
+// ── NAV ──
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+function toggleMenu() {
+  document.getElementById('nav-links').classList.toggle('open');
+}
+
+// ── COUNTER ANIMATION ──
+function animateCounter(el, target, suffix) {
+  const duration = 1800;
+  const start = performance.now();
+  const update = (now) => {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const val = Math.round(ease * target);
+    // Format thousands
+    const display = target >= 1000 ? (val / 1000).toFixed(val >= 1000 ? 0 : 1) : val;
+    el.childNodes[0].textContent = display;
+    if (progress < 1) requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+}
+
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const block = e.target;
+    const target = parseInt(block.dataset.target);
+    animateCounter(block, target, '');
+    counterObs.unobserve(block);
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.stat-num[data-target]').forEach(b => counterObs.observe(b));
+
+// ── CAROUSEL ──
+let currentSlide = 0;
+const totalSlides = 5;
+
+function goToSlide(index) {
+  const slides = document.querySelectorAll('.quote-slide');
+  const pills = document.querySelectorAll('.logo-pill');
+  const dots = document.querySelectorAll('.carousel-dot');
+
+  slides[currentSlide].classList.remove('active');
+  pills[currentSlide].classList.remove('active');
+  dots[currentSlide].classList.remove('active');
+
+  currentSlide = index;
+
+  slides[currentSlide].classList.add('active');
+  pills[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+}
+
+// Auto-advance every 6 seconds
+setInterval(() => {
+  goToSlide((currentSlide + 1) % totalSlides);
+}, 6000);
+
+// ── REVEAL ──
+const reveals = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+reveals.forEach(r => revealObs.observe(r));
+
+// ── ANIMATED BACKGROUND ──
+(function() {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+
+  const orbs = [
+    { baseX: 0.25, baseY: 0.20, r: 0.55, color: 'rgba(66,113,133,',  speed: 0.00018, phase: 0.0 },
+    { baseX: 0.75, baseY: 0.35, r: 0.50, color: 'rgba(111,174,189,', speed: 0.00013, phase: 1.8 },
+    { baseX: 0.50, baseY: 0.75, r: 0.60, color: 'rgba(66,113,133,',  speed: 0.00021, phase: 3.5 },
+    { baseX: 0.15, baseY: 0.65, r: 0.40, color: 'rgba(111,174,189,', speed: 0.00016, phase: 5.2 },
+    { baseX: 0.85, baseY: 0.80, r: 0.45, color: 'rgba(66,113,133,',  speed: 0.00019, phase: 2.6 },
+  ];
+
+  let mouse = { x: 0.5, y: 0.5 };
+  let targetMouse = { x: 0.5, y: 0.5 };
+  let scrollOffset = 0;
+
+  window.addEventListener('mousemove', e => {
+    targetMouse.x = e.clientX / window.innerWidth;
+    targetMouse.y = e.clientY / window.innerHeight;
+  });
+  window.addEventListener('scroll', () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    scrollOffset = max > 0 ? window.scrollY / max : 0;
+  });
+
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function draw(ts) {
+    const W = canvas.width, H = canvas.height;
+    mouse.x += (targetMouse.x - mouse.x) * 0.06;
+    mouse.y += (targetMouse.y - mouse.y) * 0.06;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0D1030';
+    ctx.fillRect(0, 0, W, H);
+    orbs.forEach(orb => {
+      const fx = Math.sin(ts * orb.speed + orb.phase) * 0.08;
+      const fy = Math.cos(ts * orb.speed * 0.7 + orb.phase) * 0.07;
+      const ps = 0.06 + orb.r * 0.04;
+      const cx = (orb.baseX + fx + (mouse.x - 0.5) * ps) * W;
+      const cy = (orb.baseY + fy + (mouse.y - 0.5) * ps - scrollOffset * 0.15) * H;
+      const radius = orb.r * Math.max(W, H);
+      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+      g.addColorStop(0,   orb.color + '0.18)');
+      g.addColorStop(0.4, orb.color + '0.10)');
+      g.addColorStop(1,   orb.color + '0.00)');
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
