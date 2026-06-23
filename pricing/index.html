@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — Roccia Marketing</title>
+<meta name="description" content="Transparent pricing for every stage of growth. Four tiers from coaching to full-service. Build your own custom package with our service picker.">
+<link rel="icon" type="image/png" href="../logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D1030;
+    --teal: #427185;
+    --sky: #6FAEBD;
+    --silver: #DFDFE3;
+    --white: #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--navy);
+    color: var(--silver);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 2px; }
+
+  #bg-canvas {
+    position: fixed; inset: 0;
+    width: 100%; height: 100%;
+    z-index: 0; pointer-events: none;
+  }
+
+  nav, .page-hero, section, .bottom-cta, footer { position: relative; z-index: 1; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 60px; transition: all 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(13,16,48,0.85);
+    backdrop-filter: blur(20px);
+    padding: 14px 60px;
+    border-bottom: 1px solid rgba(111,174,189,0.1);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo img { width: 36px; height: 36px; object-fit: contain; }
+  .nav-logo-text { font-weight: 700; font-size: 18px; color: var(--white); letter-spacing: -0.3px; }
+  .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+  .nav-links a { color: rgba(223,223,227,0.7); text-decoration: none; font-size: 14px; font-weight: 400; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+  .nav-cta {
+    background: var(--sky); color: var(--navy) !important;
+    padding: 10px 22px; border-radius: 100px;
+    font-weight: 600 !important; font-size: 13px !important;
+    transition: background 0.2s, transform 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--white) !important; transform: scale(1.03); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 1.5px; background: var(--white); display: block; transition: 0.3s; }
+
+  /* ── HERO ── */
+  .page-hero {
+    min-height: 50vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 160px 40px 80px;
+    position: relative; overflow: hidden;
+  }
+  .page-hero-glow {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px; height: 400px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(66,113,133,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .page-hero-content { position: relative; z-index: 1; max-width: 760px; }
+  .section-eyebrow {
+    font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--sky); margin-bottom: 20px; font-weight: 500; display: block;
+  }
+  .page-hero h1 {
+    font-size: clamp(44px, 6vw, 80px); font-weight: 800;
+    letter-spacing: -2px; color: var(--white); line-height: 1.05; margin-bottom: 24px;
+  }
+  .page-hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--sky) 0%, var(--white) 60%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .page-hero p {
+    font-size: clamp(16px, 2vw, 19px); font-weight: 300;
+    color: rgba(223,223,227,0.6); line-height: 1.65; max-width: 520px; margin: 0 auto;
+  }
+
+  /* ── SHARED ── */
+  .padded { padding: 100px 60px; }
+  .bordered { border-top: 1px solid rgba(111,174,189,0.08); }
+  .section-header { text-align: center; margin-bottom: 72px; }
+  .section-header h2 {
+    font-size: clamp(32px, 4vw, 52px); font-weight: 800;
+    letter-spacing: -1.5px; color: var(--white); margin-top: 14px; line-height: 1.1;
+  }
+  .section-header p {
+    font-size: 17px; color: rgba(223,223,227,0.55);
+    margin-top: 16px; max-width: 500px; margin-left: auto; margin-right: auto;
+    line-height: 1.65;
+  }
+
+  /* ── PRICING TIERS ── */
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2px; max-width: 1300px; margin: 0 auto;
+  }
+  .price-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(111,174,189,0.1);
+    padding: 48px 36px; position: relative;
+    transition: all 0.3s; backdrop-filter: blur(5px);
+    display: flex; flex-direction: column;
+  }
+  .price-card.featured {
+    background: rgba(111,174,189,0.08);
+    border-color: rgba(111,174,189,0.4);
+  }
+  .price-card:hover { border-color: rgba(111,174,189,0.3); transform: translateY(-4px); }
+  .price-badge {
+    display: inline-block; background: var(--sky); color: var(--navy);
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 100px; margin-bottom: 24px; width: fit-content;
+  }
+  .price-name {
+    font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--sky); margin-bottom: 16px;
+  }
+  .price-amount {
+    font-size: 52px; font-weight: 800;
+    color: var(--white); letter-spacing: -2px; line-height: 1;
+  }
+  .price-period { font-size: 14px; color: rgba(223,223,227,0.5); margin-bottom: 10px; }
+  .price-tagline {
+    font-size: 13px; color: rgba(223,223,227,0.5); line-height: 1.5;
+    margin-bottom: 32px; min-height: 40px;
+  }
+  .price-divider {
+    height: 1px; background: rgba(111,174,189,0.12); margin-bottom: 28px;
+  }
+  .price-features {
+    list-style: none; display: flex; flex-direction: column;
+    gap: 14px; margin-bottom: 40px; flex: 1;
+  }
+  .price-features li {
+    font-size: 13px; color: rgba(223,223,227,0.75);
+    display: flex; gap: 12px; align-items: flex-start; line-height: 1.5;
+  }
+  .price-features li::before {
+    content: ''; width: 16px; height: 16px; flex-shrink: 0;
+    border-radius: 50%; border: 1.5px solid var(--sky);
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8l3.5 3.5L13 5' stroke='%236FAEBD' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat;
+  }
+  .price-btn {
+    width: 100%; padding: 14px; border-radius: 100px;
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    border: 1.5px solid rgba(111,174,189,0.3);
+    background: transparent; color: var(--sky);
+    transition: all 0.25s; font-family: 'Inter', sans-serif;
+    text-decoration: none; display: block; text-align: center;
+  }
+  .price-btn:hover, .price-card.featured .price-btn {
+    background: var(--sky); color: var(--navy); border-color: var(--sky);
+  }
+
+  /* ── COMPARISON TABLE ── */
+  .compare-wrap {
+    max-width: 1100px; margin: 72px auto 0; overflow-x: auto;
+  }
+  .compare-toggle {
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; margin-bottom: 40px; cursor: pointer;
+  }
+  .compare-toggle-label {
+    font-size: 14px; color: rgba(223,223,227,0.6); font-weight: 500;
+    transition: color 0.2s;
+  }
+  .compare-toggle:hover .compare-toggle-label { color: var(--sky); }
+  .compare-toggle-icon {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 1px solid rgba(111,174,189,0.3);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.25s;
+  }
+  .compare-toggle-icon svg { width: 12px; height: 12px; stroke: var(--sky); transition: transform 0.3s; }
+  .compare-toggle.open .compare-toggle-icon svg { transform: rotate(180deg); }
+  .compare-table-wrap {
+    max-height: 0; overflow: hidden; transition: max-height 0.5s ease;
+  }
+  .compare-table-wrap.open { max-height: 1000px; }
+  table {
+    width: 100%; border-collapse: collapse; font-size: 13px;
+  }
+  thead th {
+    padding: 16px 20px; text-align: left; font-size: 11px;
+    letter-spacing: 1.5px; text-transform: uppercase; color: var(--sky);
+    border-bottom: 1px solid rgba(111,174,189,0.15); background: rgba(13,16,48,0.6);
+    backdrop-filter: blur(5px);
+  }
+  thead th:first-child { width: 40%; }
+  tbody tr { border-bottom: 1px solid rgba(111,174,189,0.06); transition: background 0.2s; }
+  tbody tr:hover { background: rgba(111,174,189,0.04); }
+  tbody td { padding: 14px 20px; color: rgba(223,223,227,0.7); vertical-align: middle; }
+  tbody td:first-child { color: var(--silver); font-weight: 500; }
+  .check { color: var(--sky); font-size: 15px; }
+  .dash { color: rgba(223,223,227,0.2); font-size: 18px; }
+  .partial { font-size: 11px; color: rgba(111,174,189,0.7); }
+
+  /* ── SERVICE PICKER ── */
+  .picker-section { padding: 100px 60px; border-top: 1px solid rgba(111,174,189,0.08); }
+  .picker-layout {
+    display: grid; grid-template-columns: 1fr 380px;
+    gap: 60px; max-width: 1200px; margin: 0 auto; align-items: start;
+  }
+  .picker-services { display: flex; flex-direction: column; gap: 2px; }
+  .picker-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 28px;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(111,174,189,0.08);
+    cursor: pointer; transition: all 0.25s; backdrop-filter: blur(5px);
+    position: relative; overflow: hidden;
+    user-select: none;
+  }
+  .picker-item::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: var(--sky);
+    transform: scaleY(0); transform-origin: bottom; transition: transform 0.25s;
+  }
+  .picker-item:hover { background: rgba(111,174,189,0.05); border-color: rgba(111,174,189,0.18); }
+  .picker-item.selected {
+    background: rgba(111,174,189,0.08);
+    border-color: rgba(111,174,189,0.3);
+  }
+  .picker-item.selected::before { transform: scaleY(1); }
+  .picker-item-left { display: flex; align-items: center; gap: 20px; }
+  .picker-checkbox {
+    width: 22px; height: 22px; border-radius: 6px;
+    border: 1.5px solid rgba(111,174,189,0.3);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: all 0.25s; background: transparent;
+  }
+  .picker-item.selected .picker-checkbox {
+    background: var(--sky); border-color: var(--sky);
+  }
+  .picker-checkbox svg { width: 12px; height: 12px; stroke: var(--navy); opacity: 0; transition: opacity 0.2s; }
+  .picker-item.selected .picker-checkbox svg { opacity: 1; }
+  .picker-item-info {}
+  .picker-item-name { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 3px; }
+  .picker-item-desc { font-size: 12px; color: rgba(223,223,227,0.5); }
+  .picker-item-price {
+    font-size: 15px; font-weight: 700; color: var(--sky); white-space: nowrap;
+  }
+  .picker-item-price span { font-size: 11px; color: rgba(223,223,227,0.4); font-weight: 400; }
+
+  /* Summary card */
+  .picker-summary {
+    position: sticky; top: 120px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(111,174,189,0.15);
+    padding: 40px 36px; backdrop-filter: blur(10px);
+  }
+  .summary-title {
+    font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--sky); margin-bottom: 28px; font-weight: 600;
+  }
+  .summary-lines { display: flex; flex-direction: column; gap: 0; min-height: 80px; margin-bottom: 28px; }
+  .summary-line {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 0; border-bottom: 1px solid rgba(111,174,189,0.08);
+    font-size: 13px; color: rgba(223,223,227,0.7);
+    animation: fadeIn 0.25s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
+  .summary-line span:last-child { color: var(--white); font-weight: 600; }
+  .summary-empty {
+    font-size: 13px; color: rgba(223,223,227,0.3); text-align: center;
+    padding: 24px 0; font-style: italic;
+  }
+  .summary-divider { height: 1px; background: rgba(111,174,189,0.15); margin-bottom: 24px; }
+  .summary-total-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 8px;
+  }
+  .summary-total-label { font-size: 13px; color: rgba(223,223,227,0.5); }
+  .summary-total {
+    font-size: 38px; font-weight: 800; color: var(--white);
+    letter-spacing: -1.5px; line-height: 1;
+  }
+  .summary-total .accent { color: var(--sky); font-size: 20px; vertical-align: super; }
+  .summary-period { font-size: 12px; color: rgba(223,223,227,0.4); margin-bottom: 28px; }
+  .summary-note {
+    font-size: 12px; color: rgba(223,223,227,0.4); line-height: 1.6;
+    margin-bottom: 24px; padding: 14px 16px;
+    background: rgba(111,174,189,0.05);
+    border: 1px solid rgba(111,174,189,0.1);
+  }
+  .summary-cta {
+    display: block; width: 100%; padding: 15px;
+    background: var(--sky); color: var(--navy);
+    border-radius: 100px; font-weight: 600; font-size: 14px;
+    text-align: center; text-decoration: none; border: none;
+    cursor: pointer; transition: all 0.25s; font-family: 'Inter', sans-serif;
+  }
+  .summary-cta:hover { background: var(--white); transform: translateY(-2px); }
+  .summary-cta:disabled {
+    background: rgba(111,174,189,0.2); color: rgba(223,223,227,0.3);
+    cursor: default; transform: none;
+  }
+
+  /* ── FAQ ── */
+  .faq-wrap { max-width: 800px; margin: 0 auto; }
+  .faq-item {
+    border-bottom: 1px solid rgba(111,174,189,0.1);
+    padding: 28px 0; cursor: pointer;
+  }
+  .faq-q {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 24px; font-size: 16px; font-weight: 600; color: var(--white);
+  }
+  .faq-icon {
+    flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+    border: 1px solid rgba(111,174,189,0.3);
+    display: flex; align-items: center; justify-content: center; transition: all 0.25s;
+  }
+  .faq-icon svg { width: 10px; height: 10px; stroke: var(--sky); transition: transform 0.25s; }
+  .faq-item.open .faq-icon { background: var(--sky); border-color: var(--sky); }
+  .faq-item.open .faq-icon svg { stroke: var(--navy); transform: rotate(45deg); }
+  .faq-a {
+    font-size: 14px; color: rgba(223,223,227,0.6); line-height: 1.75;
+    max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding-top 0.25s;
+  }
+  .faq-item.open .faq-a { max-height: 200px; padding-top: 16px; }
+
+  /* ── BOTTOM CTA ── */
+  .bottom-cta {
+    padding: 160px 60px; text-align: center;
+    border-top: 1px solid rgba(111,174,189,0.08);
+    position: relative; overflow: hidden;
+  }
+  .cta-glow {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 600px; height: 400px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(66,113,133,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .bottom-cta h2 {
+    font-size: clamp(36px, 5vw, 64px); font-weight: 800;
+    letter-spacing: -1.5px; color: var(--white); line-height: 1.07;
+    margin-bottom: 20px; position: relative; z-index: 1;
+  }
+  .bottom-cta h2 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--sky), var(--white));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .bottom-cta p {
+    font-size: 17px; color: rgba(223,223,227,0.55);
+    margin-bottom: 48px; position: relative; z-index: 1;
+  }
+  .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+  .btn-primary {
+    background: var(--sky); color: var(--navy);
+    padding: 16px 36px; border-radius: 100px; font-weight: 600; font-size: 15px;
+    text-decoration: none; transition: all 0.25s; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--white); transform: scale(1.03); box-shadow: 0 0 40px rgba(111,174,189,0.35); }
+  .btn-ghost {
+    background: transparent; color: var(--silver);
+    padding: 16px 36px; border-radius: 100px; font-weight: 500; font-size: 15px;
+    text-decoration: none; border: 1px solid rgba(223,223,227,0.2);
+    transition: all 0.25s; display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--sky); color: var(--sky); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 60px; border-top: 1px solid rgba(111,174,189,0.1);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px; color: rgba(223,223,227,0.4); position: relative; z-index: 1;
+  }
+  footer a { color: var(--sky); text-decoration: none; }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 1100px) {
+    nav { padding: 18px 32px; }
+    nav.scrolled { padding: 14px 32px; }
+    .padded, .picker-section { padding: 80px 32px; }
+    .pricing-grid { grid-template-columns: 1fr 1fr; }
+    .picker-layout { grid-template-columns: 1fr; }
+    .picker-summary { position: static; }
+    .bottom-cta { padding: 100px 32px; }
+    footer { padding: 40px 32px; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .nav-links.open {
+      display: flex; flex-direction: column; position: fixed;
+      inset: 0; background: var(--navy); z-index: 999;
+      align-items: center; justify-content: center; gap: 40px;
+    }
+    .nav-links.open a { font-size: 24px !important; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .padded, .picker-section { padding: 60px 24px; }
+    .bottom-cta { padding: 80px 24px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<nav id="main-nav">
+  <a href="../" class="nav-logo">
+    <img src="../logo.png" alt="Roccia">
+    <span class="nav-logo-text">Roccia</span>
+  </a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="/services/">Services</a></li>
+    <li><a href="/results/">Results</a></li>
+    <li><a href="/pricing/" class="active">Pricing</a></li>
+    <li><a href="/partnership/">Partners</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/contact/">Contact</a></li>
+    <li><a href="/contact/" class="nav-cta">Book Free Consultation</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-glow"></div>
+  <div class="page-hero-content">
+    <span class="section-eyebrow reveal">Pricing</span>
+    <h1 class="reveal reveal-delay-1">Simple pricing.<br><em>Real results.</em></h1>
+    <p class="reveal reveal-delay-2">No hidden fees. No long-term lock-ins. Pick a plan that fits where you are right now, or build your own below.</p>
+  </div>
+</div>
+
+<!-- PRICING TIERS -->
+<section class="padded">
+  <div class="section-header reveal">
+    <span class="section-eyebrow">Plans</span>
+    <h2>Four tiers. One goal.<br>Your growth.</h2>
+  </div>
+
+  <div class="pricing-grid">
+
+    <!-- Coaching -->
+    <div class="price-card reveal">
+      <div class="price-name">Coaching</div>
+      <div class="price-amount">$450</div>
+      <div class="price-period">/ month</div>
+      <div class="price-tagline">For businesses that want expert guidance and do the work themselves.</div>
+      <div class="price-divider"></div>
+      <ul class="price-features">
+        <li>Bimonthly strategy breakdown calls</li>
+        <li>In-depth content analysis</li>
+        <li>Data-driven post guidance for your field</li>
+        <li>Clear, measurable ROI reporting weekly</li>
+      </ul>
+      <a href="/contact/" class="price-btn">Get Started</a>
+    </div>
+
+    <!-- Basic -->
+    <div class="price-card reveal reveal-delay-1">
+      <div class="price-name">Basic</div>
+      <div class="price-amount">$650</div>
+      <div class="price-period">/ month</div>
+      <div class="price-tagline">For businesses ready for a managed social presence on one platform.</div>
+      <div class="price-divider"></div>
+      <ul class="price-features">
+        <li>Managed social presence on 1 platform</li>
+        <li>20 professionally crafted posts / month</li>
+        <li>Monthly data-driven content strategy</li>
+        <li>Monthly performance summary report</li>
+        <li>Monthly check-in call or email</li>
+      </ul>
+      <a href="/contact/" class="price-btn">Get Started</a>
+    </div>
+
+    <!-- Pro -->
+    <div class="price-card featured reveal reveal-delay-2">
+      <div class="price-badge">Most Popular</div>
+      <div class="price-name">Pro</div>
+      <div class="price-amount">$1,300</div>
+      <div class="price-period">/ month</div>
+      <div class="price-tagline">For growing businesses that want full social, email, and SEO handled.</div>
+      <div class="price-divider"></div>
+      <ul class="price-features">
+        <li>Social media on 2–3 platforms</li>
+        <li>35 branded posts / month</li>
+        <li>Email marketing — 1 campaign / month</li>
+        <li>SEO support & local listings (LSA)</li>
+        <li>Monthly strategy call + detailed report</li>
+      </ul>
+      <a href="/contact/" class="price-btn">Get Started</a>
+    </div>
+
+    <!-- Premium -->
+    <div class="price-card reveal reveal-delay-3">
+      <div class="price-name">Premium</div>
+      <div class="price-amount">$2,000</div>
+      <div class="price-period">/ month</div>
+      <div class="price-tagline">For businesses ready to go all-in across every marketing channel.</div>
+      <div class="price-divider"></div>
+      <ul class="price-features">
+        <li>Social media on 3–4 platforms + brand storytelling</li>
+        <li>50 posts / month</li>
+        <li>Email marketing — 2 campaigns / month</li>
+        <li>Full SEO + GEO strategy</li>
+        <li>Meta paid ads management</li>
+        <li>AI implementation services</li>
+      </ul>
+      <a href="/contact/" class="price-btn">Get Started</a>
+    </div>
+
+  </div>
+
+  <!-- Comparison toggle -->
+  <div class="compare-wrap reveal">
+    <div class="compare-toggle" id="compare-toggle" onclick="toggleTable()">
+      <div class="compare-toggle-icon">
+        <svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 4l4 4 4-4"/>
+        </svg>
+      </div>
+      <span class="compare-toggle-label">Compare all plans side by side</span>
+    </div>
+    <div class="compare-table-wrap" id="compare-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Coaching</th>
+            <th>Basic</th>
+            <th>Pro</th>
+            <th>Premium</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Strategy Calls</td>
+            <td><span class="partial">Bimonthly</span></td>
+            <td><span class="partial">Monthly</span></td>
+            <td><span class="partial">Monthly</span></td>
+            <td><span class="partial">Weekly</span></td>
+          </tr>
+          <tr>
+            <td>Social Media Management</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="partial">1 platform</span></td>
+            <td><span class="partial">2–3 platforms</span></td>
+            <td><span class="partial">3–4 platforms</span></td>
+          </tr>
+          <tr>
+            <td>Posts per Month</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="partial">20</span></td>
+            <td><span class="partial">35</span></td>
+            <td><span class="partial">50</span></td>
+          </tr>
+          <tr>
+            <td>Email Marketing</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="dash">—</span></td>
+            <td><span class="partial">1 campaign / mo</span></td>
+            <td><span class="partial">2 campaigns / mo</span></td>
+          </tr>
+          <tr>
+            <td>SEO & Local Listings</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Full SEO + GEO Strategy</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="dash">—</span></td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Meta Paid Ads Management</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="dash">—</span></td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>AI Implementation</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="dash">—</span></td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Content Analysis</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Performance Reporting</td>
+            <td><span class="partial">Weekly</span></td>
+            <td><span class="partial">Monthly</span></td>
+            <td><span class="partial">Monthly</span></td>
+            <td><span class="partial">Weekly</span></td>
+          </tr>
+          <tr>
+            <td>Brand Storytelling</td>
+            <td><span class="dash">—</span></td>
+            <td><span class="dash">—</span></td>
+            <td><span class="dash">—</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE PICKER -->
+<section class="picker-section bordered">
+  <div class="section-header reveal">
+    <span class="section-eyebrow">Build Your Own</span>
+    <h2>Need something custom?<br>Pick what you need.</h2>
+    <p>Select the individual services that match your goals and see your estimated monthly investment in real time.</p>
+  </div>
+
+  <div class="picker-layout">
+    <div class="picker-services reveal">
+
+      <div class="picker-item" data-service="SEO & GEO" data-price="600" onclick="togglePicker(this)">
+        <div class="picker-item-left">
+          <div class="picker-checkbox">
+            <svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg>
+          </div>
+          <div class="picker-item-info">
+            <div class="picker-item-name">SEO & GEO</div>
+            <div class="picker-item-desc">On-page optimization, local listings, AI search visibility</div>
+          </div>
+        </div>
+        <div class="picker-item-price">$600 <span>/ mo</span></div>
+      </div>
+
+      <div class="picker-item" data-service="Paid Advertising" data-price="800" onclick="togglePicker(this)">
+        <div class="picker-item-left">
+          <div class="picker-checkbox">
+            <svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg>
+          </div>
+          <div class="picker-item-info">
+            <div class="picker-item-name">Paid Advertising</div>
+            <div class="picker-item-desc">Meta ad campaigns, creative testing, funnel management</div>
+          </div>
+        </div>
+        <div class="picker-item-price">$800 <span>/ mo</span></div>
+      </div>
+
+      <div class="picker-item" data-service="Social Media Management" data-price="500" onclick="togglePicker(this)">
+        <div class="picker-item-left">
+          <div class="picker-checkbox">
+            <svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg>
+          </div>
+          <div class="picker-item-info">
+            <div class="picker-item-name">Social Media Management</div>
+            <div class="picker-item-desc">Content calendar, posting, community engagement</div>
+          </div>
+        </div>
+        <div class="picker-item-price">$500 <span>/ mo</span></div>
+      </div>
+
+      <div class="picker-item" data-service="Content Creation" data-price="450" onclick="togglePicker(this)">
+        <div class="picker-item-left">
+          <div class="picker-checkbox">
+            <svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg>
+          </div>
+          <div class="picker-item-info">
+            <div class="picker-item-name">Content Creation</div>
+            <div class="picker-item-desc">Video editing, copywriting, blog content, email campaigns</div>
+          </div>
+        </div>
+        <div class="picker-item-price">$450 <span>/ mo</span></div>
+      </div>
+
+      <div class="picker-item" data-service="AI Automation" data-price="700" onclick="togglePicker(this)">
+        <div class="picker-item-left">
+          <div class="picker-checkbox">
+            <svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg>
+          </div>
+          <div class="picker-item-info">
+            <div class="picker-item-name">AI Automation</div>
+            <div class="picker-item-desc">Lead qualification, follow-up sequences, CRM integration</div>
+          </div>
+        </div>
+        <div class="picker-item-price">$700 <span>/ mo</span></div>
+      </div>
+
+      <div class="picker-item" data-service="Brand Strategy" data-price="500" onclick="togglePicker(this)">
+        <div class="picker-item-left">
+          <div class="picker-checkbox">
+            <svg viewBox="0 0 12 12" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg>
+          </div>
+          <div class="picker-item-info">
+            <div class="picker-item-name">Brand Strategy</div>
+            <div class="picker-item-desc">Positioning, messaging framework, visual identity guidelines</div>
+          </div>
+        </div>
+        <div class="picker-item-price">$500 <span>/ mo</span></div>
+      </div>
+
+    </div>
+
+    <!-- Summary Card -->
+    <div class="picker-summary reveal reveal-delay-1">
+      <div class="summary-title">Your Custom Package</div>
+      <div class="summary-lines" id="summary-lines">
+        <div class="summary-empty" id="summary-empty">Select services to see your estimate</div>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-total-row">
+        <span class="summary-total-label">Estimated Total</span>
+      </div>
+      <div class="summary-total" id="summary-total"><span class="accent">$</span>0</div>
+      <div class="summary-period">per month · billed monthly · cancel anytime</div>
+      <div class="summary-note">
+        This is an estimate. Final pricing is confirmed on your discovery call based on scope, volume, and your specific goals. Bundling 3+ services typically unlocks a discount.
+      </div>
+      <a href="/contact/" class="summary-cta" id="summary-cta" style="opacity:0.4;pointer-events:none;">
+        Book a Free Consultation
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="padded bordered">
+  <div class="section-header reveal">
+    <span class="section-eyebrow">FAQ</span>
+    <h2>Common questions.</h2>
+  </div>
+  <div class="faq-wrap">
+
+    <div class="faq-item reveal" onclick="toggleFaq(this)">
+      <div class="faq-q">Are there long-term contracts?
+        <span class="faq-icon"><svg viewBox="0 0 10 10" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span>
+      </div>
+      <div class="faq-a">No. All plans are month-to-month with a 30-day notice period. We earn your continued business through results, not lock-ins. That said, marketing compounds over time — clients who stick with us see the biggest returns after month 3.</div>
+    </div>
+
+    <div class="faq-item reveal" onclick="toggleFaq(this)">
+      <div class="faq-q">How quickly will I see results?
+        <span class="faq-icon"><svg viewBox="0 0 10 10" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span>
+      </div>
+      <div class="faq-a">Paid advertising typically shows traction within 2–4 weeks. SEO is a longer play — expect meaningful movement in 3–6 months with compounding returns after that. We'll set honest expectations for your specific situation on your discovery call.</div>
+    </div>
+
+    <div class="faq-item reveal" onclick="toggleFaq(this)">
+      <div class="faq-q">Can I switch plans or services later?
+        <span class="faq-icon"><svg viewBox="0 0 10 10" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span>
+      </div>
+      <div class="faq-a">Absolutely. Most clients start small and add services as they grow and see results. You can upgrade, downgrade, or change your service mix at the start of any new billing month with no penalty.</div>
+    </div>
+
+    <div class="faq-item reveal" onclick="toggleFaq(this)">
+      <div class="faq-q">Does ad spend come out of my plan price?
+        <span class="faq-icon"><svg viewBox="0 0 10 10" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span>
+      </div>
+      <div class="faq-a">No. Ad spend goes directly to the platform (Meta, Google, etc.) and is separate from our management fee. We recommend a minimum of $1,000/month in ad spend for paid campaigns to generate enough data to optimize properly. We'll walk you through the full investment breakdown on your call.</div>
+    </div>
+
+    <div class="faq-item reveal" onclick="toggleFaq(this)">
+      <div class="faq-q">What does onboarding look like?
+        <span class="faq-icon"><svg viewBox="0 0 10 10" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span>
+      </div>
+      <div class="faq-a">After your discovery call and sign-on, we run a full audit of your current digital presence, build your custom strategy, and present it before anything goes live. Most clients are fully onboarded and active within 7–10 business days.</div>
+    </div>
+
+    <div class="faq-item reveal" onclick="toggleFaq(this)">
+      <div class="faq-q">Do you offer discounts for bundling services?
+        <span class="faq-icon"><svg viewBox="0 0 10 10" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span>
+      </div>
+      <div class="faq-a">Yes. When you bundle 3 or more services we typically offer a discount on the total package. Exact savings depend on the combination — bring it up on your discovery call and we'll put together the best deal we can.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <div class="cta-glow"></div>
+  <h2 class="reveal">Not sure where<br><em>to start?</em></h2>
+  <p class="reveal reveal-delay-1">Book a free consultation. We'll map out exactly what your business needs — and what it doesn't.</p>
+  <div class="cta-btns reveal reveal-delay-2">
+    <a href="/contact/" class="btn-primary">Book Free Consultation</a>
+    <a href="/services/" class="btn-ghost">Explore Services</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Roccia Marketing. All rights reserved.</span>
+  <span>Built for growth. <a href="/contact/">Let's talk.</a></span>
+</footer>
+
+<script>
+// ── NAV ──
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+function toggleMenu() { document.getElementById('nav-links').classList.toggle('open'); }
+
+// ── COMPARISON TABLE ──
+function toggleTable() {
+  const wrap = document.getElementById('compare-table');
+  const toggle = document.getElementById('compare-toggle');
+  wrap.classList.toggle('open');
+  toggle.classList.toggle('open');
+}
+
+// ── SERVICE PICKER ──
+const selected = {};
+
+function togglePicker(el) {
+  const service = el.dataset.service;
+  const price   = parseInt(el.dataset.price);
+  if (selected[service]) {
+    delete selected[service];
+    el.classList.remove('selected');
+  } else {
+    selected[service] = price;
+    el.classList.add('selected');
+  }
+  updateSummary();
+}
+
+function updateSummary() {
+  const linesEl  = document.getElementById('summary-lines');
+  const totalEl  = document.getElementById('summary-total');
+  const emptyEl  = document.getElementById('summary-empty');
+  const ctaEl    = document.getElementById('summary-cta');
+  const keys     = Object.keys(selected);
+  const total    = keys.reduce((sum, k) => sum + selected[k], 0);
+
+  // Remove old lines
+  linesEl.querySelectorAll('.summary-line').forEach(l => l.remove());
+
+  if (keys.length === 0) {
+    emptyEl.style.display = 'block';
+    totalEl.innerHTML = '<span class="accent">$</span>0';
+    ctaEl.style.opacity = '0.4';
+    ctaEl.style.pointerEvents = 'none';
+  } else {
+    emptyEl.style.display = 'none';
+    keys.forEach(k => {
+      const line = document.createElement('div');
+      line.className = 'summary-line';
+      line.innerHTML = `<span>${k}</span><span>$${selected[k].toLocaleString()}</span>`;
+      linesEl.appendChild(line);
+    });
+    totalEl.innerHTML = `<span class="accent">$</span>${total.toLocaleString()}`;
+    ctaEl.style.opacity = '1';
+    ctaEl.style.pointerEvents = 'auto';
+  }
+}
+
+// ── FAQ ──
+function toggleFaq(el) { el.classList.toggle('open'); }
+
+// ── REVEAL ──
+const reveals = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+reveals.forEach(r => revealObs.observe(r));
+
+// ── ANIMATED BG ──
+(function() {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  const orbs = [
+    { baseX: 0.25, baseY: 0.20, r: 0.55, color: 'rgba(66,113,133,',  speed: 0.00018, phase: 0.0 },
+    { baseX: 0.75, baseY: 0.35, r: 0.50, color: 'rgba(111,174,189,', speed: 0.00013, phase: 1.8 },
+    { baseX: 0.50, baseY: 0.75, r: 0.60, color: 'rgba(66,113,133,',  speed: 0.00021, phase: 3.5 },
+    { baseX: 0.15, baseY: 0.65, r: 0.40, color: 'rgba(111,174,189,', speed: 0.00016, phase: 5.2 },
+    { baseX: 0.85, baseY: 0.80, r: 0.45, color: 'rgba(66,113,133,',  speed: 0.00019, phase: 2.6 },
+  ];
+  let mouse = { x: 0.5, y: 0.5 }, targetMouse = { x: 0.5, y: 0.5 }, scrollOffset = 0;
+  window.addEventListener('mousemove', e => { targetMouse.x = e.clientX / window.innerWidth; targetMouse.y = e.clientY / window.innerHeight; });
+  window.addEventListener('scroll', () => { const m = document.documentElement.scrollHeight - window.innerHeight; scrollOffset = m > 0 ? window.scrollY / m : 0; });
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  window.addEventListener('resize', resize); resize();
+  function draw(ts) {
+    const W = canvas.width, H = canvas.height;
+    mouse.x += (targetMouse.x - mouse.x) * 0.06;
+    mouse.y += (targetMouse.y - mouse.y) * 0.06;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0D1030'; ctx.fillRect(0, 0, W, H);
+    orbs.forEach(orb => {
+      const fx = Math.sin(ts * orb.speed + orb.phase) * 0.08;
+      const fy = Math.cos(ts * orb.speed * 0.7 + orb.phase) * 0.07;
+      const ps = 0.06 + orb.r * 0.04;
+      const cx = (orb.baseX + fx + (mouse.x - 0.5) * ps) * W;
+      const cy = (orb.baseY + fy + (mouse.y - 0.5) * ps - scrollOffset * 0.15) * H;
+      const radius = orb.r * Math.max(W, H);
+      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+      g.addColorStop(0, orb.color + '0.18)');
+      g.addColorStop(0.4, orb.color + '0.10)');
+      g.addColorStop(1, orb.color + '0.00)');
+      ctx.fillStyle = g; ctx.beginPath();
+      ctx.arc(cx, cy, radius, 0, Math.PI * 2); ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
