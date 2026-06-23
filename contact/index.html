@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Roccia Marketing</title>
+<meta name="description" content="Get in touch with Roccia Marketing. Let's build a brand people remember.">
+<link rel="icon" type="image/png" href="../logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D1030;
+    --teal: #427185;
+    --sky: #6FAEBD;
+    --silver: #DFDFE3;
+    --white: #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--navy);
+    color: var(--silver);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 2px; }
+
+  /* ── BACKGROUND CANVAS ── */
+  #bg-canvas {
+    position: fixed; inset: 0;
+    width: 100%; height: 100%;
+    z-index: 0; pointer-events: none;
+  }
+
+  nav, .page-hero, section, footer { position: relative; z-index: 1; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 60px; transition: all 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(13,16,48,0.85);
+    backdrop-filter: blur(20px);
+    padding: 14px 60px;
+    border-bottom: 1px solid rgba(111,174,189,0.1);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo img { width: 36px; height: 36px; object-fit: contain; }
+  .nav-logo-text { font-weight: 700; font-size: 18px; color: var(--white); letter-spacing: -0.3px; }
+  .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+  .nav-links a { color: rgba(223,223,227,0.7); text-decoration: none; font-size: 14px; font-weight: 400; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+  .nav-cta {
+    background: var(--sky); color: var(--navy) !important;
+    padding: 10px 22px; border-radius: 100px;
+    font-weight: 600 !important; font-size: 13px !important;
+    transition: background 0.2s, transform 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--white) !important; transform: scale(1.03); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 1.5px; background: var(--white); display: block; transition: 0.3s; }
+
+  /* ── HERO ── */
+  .page-hero {
+    min-height: 40vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 180px 40px 60px;
+    position: relative; overflow: hidden;
+  }
+  .page-hero-glow {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px; height: 400px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(66,113,133,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .page-hero-content { position: relative; z-index: 1; max-width: 760px; }
+  .section-eyebrow {
+    font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--sky); margin-bottom: 20px; font-weight: 500; display: block;
+  }
+  .page-hero h1 {
+    font-size: clamp(44px, 6vw, 80px); font-weight: 800;
+    letter-spacing: -2px; color: var(--white); line-height: 1.05; margin-bottom: 24px;
+  }
+  .page-hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--sky) 0%, var(--white) 60%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .page-hero p {
+    font-size: clamp(16px, 2vw, 19px); font-weight: 300;
+    color: rgba(223,223,227,0.6); line-height: 1.65; max-width: 520px; margin: 0 auto;
+  }
+
+  /* ── CONTACT LAYOUT ── */
+  .padded { padding: 80px 60px 140px; }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1.2fr;
+    gap: 80px; max-width: 1200px; margin: 0 auto; align-items: start;
+  }
+
+  /* ── LEFT: INFO & ENGAGEMENT ── */
+  .contact-info-wrapper { display: flex; flex-direction: column; gap: 40px; }
+  
+  /* Status Indicator */
+  .status-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(111,174,189,0.08); border: 1px solid rgba(111,174,189,0.2);
+    padding: 10px 20px; border-radius: 100px; font-size: 13px;
+    color: var(--white); font-weight: 500; width: fit-content;
+  }
+  .status-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--sky); box-shadow: 0 0 10px var(--sky);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(111,174,189,0.7); } 70% { box-shadow: 0 0 0 10px rgba(111,174,189,0); } 100% { box-shadow: 0 0 0 0 rgba(111,174,189,0); } }
+
+  .contact-methods { display: flex; flex-direction: column; gap: 16px; }
+  .method-card {
+    display: flex; gap: 20px; align-items: center;
+    padding: 24px; background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(111,174,189,0.1); border-radius: 8px;
+    text-decoration: none; transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+  }
+  .method-card:hover {
+    background: rgba(111,174,189,0.06); border-color: rgba(111,174,189,0.3);
+    transform: translateX(8px);
+  }
+  .method-icon {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: rgba(111,174,189,0.1); border: 1px solid rgba(111,174,189,0.2);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    transition: all 0.3s;
+  }
+  .method-card:hover .method-icon { background: var(--sky); }
+  .method-card:hover .method-icon svg { stroke: var(--navy); }
+  .method-icon svg { width: 20px; height: 20px; stroke: var(--sky); transition: all 0.3s; }
+  .method-text { display: flex; flex-direction: column; gap: 4px; }
+  .method-title { font-size: 13px; color: rgba(223,223,227,0.5); text-transform: uppercase; letter-spacing: 1px; }
+  .method-value { font-size: 17px; font-weight: 600; color: var(--white); }
+
+  .social-links { display: flex; gap: 12px; margin-top: 10px; }
+  .social-link {
+    width: 44px; height: 44px; border-radius: 50%;
+    border: 1px solid rgba(111,174,189,0.2);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.25s; text-decoration: none; background: rgba(255,255,255,0.02);
+  }
+  .social-link:hover { border-color: var(--sky); background: var(--sky); transform: translateY(-4px); }
+  .social-link:hover svg { stroke: var(--navy); }
+  .social-link svg { width: 18px; height: 18px; stroke: var(--sky); transition: stroke 0.25s; }
+
+  /* ── RIGHT: FORM CARD ── */
+  .form-card {
+    background: rgba(13,16,48,0.4); border: 1px solid rgba(111,174,189,0.15);
+    padding: 52px 48px; border-radius: 12px;
+    backdrop-filter: blur(15px); box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  }
+  .form-card h3 { font-size: 26px; font-weight: 700; color: var(--white); margin-bottom: 8px; letter-spacing: -0.5px; }
+  .form-card > p { font-size: 14px; color: rgba(223,223,227,0.6); margin-bottom: 32px; }
+  
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+  .form-group label { font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase; color: rgba(223,223,227,0.5); font-weight: 600; }
+  .form-group input, .form-group select, .form-group textarea {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(111,174,189,0.2);
+    border-radius: 6px; padding: 14px 16px; font-size: 15px;
+    color: var(--white); font-family: 'Inter', sans-serif;
+    transition: all 0.3s; outline: none; width: 100%;
+  }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(223,223,227,0.2); }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--sky); background: rgba(111,174,189,0.05);
+    box-shadow: 0 0 0 4px rgba(111,174,189,0.1);
+  }
+  .form-group select option { background: var(--navy); color: var(--white); }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  
+  .form-submit {
+    width: 100%; padding: 18px; border-radius: 100px;
+    background: var(--sky); color: var(--navy);
+    font-size: 15px; font-weight: 700; cursor: pointer; border: none;
+    transition: all 0.3s; margin-top: 10px; font-family: 'Inter', sans-serif;
+  }
+  .form-submit:hover { background: var(--white); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(111,174,189,0.2); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 60px; border-top: 1px solid rgba(111,174,189,0.1);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px; color: rgba(223,223,227,0.4); background: rgba(13,16,48,0.8); backdrop-filter: blur(10px);
+  }
+  footer a { color: var(--sky); text-decoration: none; }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 1024px) {
+    nav { padding: 18px 32px; }
+    nav.scrolled { padding: 14px 32px; }
+    .padded { padding: 60px 32px 100px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 60px; }
+    .form-card { padding: 40px 32px; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .nav-links.open {
+      display: flex; flex-direction: column; position: fixed;
+      inset: 0; background: var(--navy); z-index: 999;
+      align-items: center; justify-content: center; gap: 40px;
+    }
+    .nav-links.open a { font-size: 24px !important; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
+    .form-card { padding: 32px 24px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<nav id="main-nav">
+  <a href="../" class="nav-logo">
+    <img src="../logo.png" alt="Roccia">
+    <span class="nav-logo-text">Roccia</span>
+  </a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="/services/">Services</a></li>
+    <li><a href="/results/">Results</a></li>
+    <li><a href="/pricing/">Pricing</a></li>
+    <li><a href="/partnership/">Partners</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/contact/" class="active">Contact</a></li>
+    <li><a href="#form-scroll" class="nav-cta">Book Free Consultation</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-glow"></div>
+  <div class="page-hero-content">
+    <span class="section-eyebrow reveal">Get in Touch</span>
+    <h1 class="reveal reveal-delay-1">Let's build something<br><em>great together.</em></h1>
+    <p class="reveal reveal-delay-2">Have a question or ready to scale your business? Drop us a line and our team will get back to you within one business day.</p>
+  </div>
+</div>
+
+<section class="padded">
+  <div class="contact-grid">
+    
+    <div class="contact-info-wrapper reveal">
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        Currently accepting new clients for Q3
+      </div>
+
+      <div class="contact-methods">
+        <a href="mailto:rocciamarketingteam@gmail.com" class="method-card">
+          <div class="method-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="method-text">
+            <span class="method-title">Email Us</span>
+            <span class="method-value">rocciamarketingteam@gmail.com</span>
+          </div>
+        </a>
+
+        <a href="tel:+15093085517" class="method-card">
+          <div class="method-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.69h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="method-text">
+            <span class="method-title">Call or Text</span>
+            <span class="method-value">509-308-5517</span>
+          </div>
+        </a>
+      </div>
+
+      <div>
+        <span class="method-title" style="display:block; margin-bottom:12px;">Connect with us</span>
+        <div class="social-links">
+          <a href="https://www.instagram.com/roccia_marketing/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/rocciamarketing" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal reveal-delay-1" id="form-scroll">
+      <div class="form-card">
+        <h3>Send a Message</h3>
+        <p>Fill out the details below and we'll route you to the right team member.</p>
+        
+        <form action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="a84a2026-9b71-46fc-a1b6-0d543163e698">
+          <input type="hidden" name="subject" value="New Contact Message — Roccia Marketing">
+          <input type="hidden" name="redirect" value="https://web3forms.com/success">
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name *</label>
+              <input type="text" name="name" placeholder="Jane Doe" required>
+            </div>
+            <div class="form-group">
+              <label>Work Email *</label>
+              <input type="email" name="email" placeholder="jane@company.com" required>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" name="phone" placeholder="(555) 000-0000">
+            </div>
+            <div class="form-group">
+              <label>Business Name</label>
+              <input type="text" name="business_name" placeholder="Your Company LLC">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>Primary Interest</label>
+            <select name="service">
+              <option value="" disabled selected>Select a service...</option>
+              <option>SEO &amp; GEO</option>
+              <option>Paid Advertising</option>
+              <option>Social Media Management</option>
+              <option>Content Creation</option>
+              <option>AI Automation</option>
+              <option>Brand Strategy</option>
+              <option>Partnership / White-Label</option>
+              <option>Not Sure — Let's Talk</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>How can we help? *</label>
+            <textarea name="message" placeholder="Tell us a little bit about your current goals, challenges, or the specific projects you have in mind..." required></textarea>
+          </div>
+          
+          <button type="submit" class="form-submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Roccia Marketing. All rights reserved.</span>
+  <span>Built for growth. <a href="#">Back to top</a></span>
+</footer>
+
+<script>
+// ── NAV SCROLL & HAMBURGER ──
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+function toggleMenu() { document.getElementById('nav-links').classList.toggle('open'); }
+
+// ── REVEAL ANIMATIONS ──
+const reveals = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+reveals.forEach(r => revealObs.observe(r));
+
+// ── ANIMATED CANVAS BACKGROUND ──
+(function() {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  const orbs = [
+    { baseX: 0.25, baseY: 0.20, r: 0.55, color: 'rgba(66,113,133,',  speed: 0.00018, phase: 0.0 },
+    { baseX: 0.75, baseY: 0.35, r: 0.50, color: 'rgba(111,174,189,', speed: 0.00013, phase: 1.8 },
+    { baseX: 0.50, baseY: 0.75, r: 0.60, color: 'rgba(66,113,133,',  speed: 0.00021, phase: 3.5 },
+    { baseX: 0.15, baseY: 0.65, r: 0.40, color: 'rgba(111,174,189,', speed: 0.00016, phase: 5.2 },
+    { baseX: 0.85, baseY: 0.80, r: 0.45, color: 'rgba(66,113,133,',  speed: 0.00019, phase: 2.6 },
+  ];
+  let mouse = { x: 0.5, y: 0.5 }, targetMouse = { x: 0.5, y: 0.5 }, scrollOffset = 0;
+  
+  window.addEventListener('mousemove', e => { 
+    targetMouse.x = e.clientX / window.innerWidth; 
+    targetMouse.y = e.clientY / window.innerHeight; 
+  });
+  
+  window.addEventListener('scroll', () => { 
+    const m = document.documentElement.scrollHeight - window.innerHeight; 
+    scrollOffset = m > 0 ? window.scrollY / m : 0; 
+  });
+  
+  function resize() { 
+    canvas.width = window.innerWidth; 
+    canvas.height = window.innerHeight; 
+  }
+  window.addEventListener('resize', resize); 
+  resize();
+  
+  function draw(ts) {
+    const W = canvas.width, H = canvas.height;
+    mouse.x += (targetMouse.x - mouse.x) * 0.06;
+    mouse.y += (targetMouse.y - mouse.y) * 0.06;
+    
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0D1030'; 
+    ctx.fillRect(0, 0, W, H);
+    
+    orbs.forEach(orb => {
+      const fx = Math.sin(ts * orb.speed + orb.phase) * 0.08;
+      const fy = Math.cos(ts * orb.speed * 0.7 + orb.phase) * 0.07;
+      const ps = 0.06 + orb.r * 0.04;
+      const cx = (orb.baseX + fx + (mouse.x - 0.5) * ps) * W;
+      const cy = (orb.baseY + fy + (mouse.y - 0.5) * ps - scrollOffset * 0.15) * H;
+      const radius = orb.r * Math.max(W, H);
+      
+      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+      g.addColorStop(0, orb.color + '0.18)');
+      g.addColorStop(0.4, orb.color + '0.10)');
+      g.addColorStop(1, orb.color + '0.00)');
+      
+      ctx.fillStyle = g; 
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, 0, Math.PI * 2); 
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
